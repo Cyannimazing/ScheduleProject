@@ -34,11 +34,11 @@ namespace ScheduleProject.data.models
         {
             return new LecturerSchedule
             {
-                LecturerId = 1,
-                SubjCode = "CS101",
+                LecturerId = 2,
+                SubjCode = "Cookery 101",
                 RoomCode = "Room A101",
-                ClassId = 1,
-                TimeSlotId = 2,
+                TimeSlotId = 1,
+                ClassId = 2,
                 SchoolYearTermId = 1
             };
         }

@@ -28,16 +28,16 @@ namespace ScheduleProject
             var db = new DatabaseService();
 
             //TimeSlot.TimeSlotSeeder();
-
-            //Trace.WriteLine(BaseService.Create(BaseService.PROGRAM, Program.ProgramSeeder()));
-            //Trace.WriteLine(BaseService.Create(BaseService.LECTURER, Lecturer.LecturerSeeder()));
-            //Trace.WriteLine(BaseService.Create(BaseService.ROOM, Room.RoomSeeder()));
-            //Trace.WriteLine(BaseService.Create(BaseService.TERM, Term.TermSeeder()));
-            //Trace.WriteLine(BaseService.Create(BaseService.SUBJECT, Subject.SubjectSeeder()));
+            //Program.ProgramSeeder();
+            //Lecturer.LecturerSeeder();
+            //Term.TermSeeder();
+            //Room.RoomSeeder();
+            //Subject.SubjectSeeder();
             //Trace.WriteLine(BaseService.Create(BaseService.PROGRAM_SUBJECT, ProgramSubject.ProgramSubjectSeeder()));
             //Trace.WriteLine(BaseService.Create(BaseService.LECTURER_SUBJECT, LecturerSubject.LecturerSubjectSeeder()));
-            //Trace.WriteLine(BaseService.Create(BaseService.CLASS_GROUP, ClassGroup.ClassGroupSeeder()));
-            //Trace.WriteLine(BaseService.Create(BaseService.SCHOOL_YEAR_TERM, SchoolYearTerm.SchoolYearTermSeeder()));
+            //ClassGroup.ClassGroupSeeder();
+            //SchoolYearTerm.SchoolYearTermSeeder();
+
             //Trace.WriteLine(BaseService.Create(BaseService.LECTURER_SCHEDULE, LecturerSchedule.LecturerScheduleSeeder()));
 
             //List<Model> models = BaseService.GetAll(BaseService.LECTURER_SUBJECT);

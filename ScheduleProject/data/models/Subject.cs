@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScheduleProject.data.service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,16 +27,32 @@ namespace ScheduleProject.data.models
         public List<ProgramSubject> ProgramSubjects { get; set; }
         public List<LecturerSubject> LecturerSubjects { get; set; }
 
-        public static Subject SubjectSeeder()
+        public static void SubjectSeeder()
         {
-            return new Subject
+            BaseService.Create(BaseService.SUBJECT, new Subject
             {
                 Code = "CS101",
                 Name = "Introduction to Computer Science",
                 Unit = 3,
+                IsGenEd = false,
+                TermId = 1 // You can change this based on the actual existing Term ID
+            });
+            BaseService.Create(BaseService.SUBJECT, new Subject
+            {
+                Code = "EN101",
+                Name = "English 1",
+                Unit = 3,
                 IsGenEd = true,
                 TermId = 1 // You can change this based on the actual existing Term ID
-            };
+            });
+            BaseService.Create(BaseService.SUBJECT, new Subject
+            {
+                Code = "Cookery 101",
+                Name = "Cookery 1",
+                Unit = 3,
+                IsGenEd = false,
+                TermId = 1 // You can change this based on the actual existing Term ID
+            });
         }
     }
 }

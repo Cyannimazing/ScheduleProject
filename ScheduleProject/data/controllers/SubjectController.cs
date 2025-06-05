@@ -48,8 +48,8 @@ namespace ScheduleProject.data.controller
                         Unit = Convert.ToInt16(reader[Subject.COL_UNIT]),
                         IsGenEd = Convert.ToBoolean(reader[Subject.COL_IS_GEN_ED]),
                         TermId = Convert.ToInt32(reader[Subject.COL_TERM_ID]),
-                        CreatedAt = (DateTime)reader[Subject.COL_CREATED_AT],
-                        UpdatedAt = (DateTime)reader[Subject.COL_UPDATED_AT]
+                        CreatedAt = reader[Subject.COL_CREATED_AT].ToString(),
+                        UpdatedAt = reader[Subject.COL_UPDATED_AT].ToString()
                     });
                 }
             }

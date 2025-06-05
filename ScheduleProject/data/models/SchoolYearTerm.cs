@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScheduleProject.data.service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,15 +22,22 @@ namespace ScheduleProject.data.models
         public string StartDate { get; set; }
         public string EndDate { get; set; }
 
-        public static SchoolYearTerm SchoolYearTermSeeder()
+        public static void SchoolYearTermSeeder()
         {
-            return new SchoolYearTerm
+            BaseService.Create(BaseService.SCHOOL_YEAR_TERM ,new SchoolYearTerm
             {
-                TermId = 1, // Make sure this term exists
+                TermId = 1, 
                 SchoolYear = "2025-2026",
-                StartDate = "2025-08-01",
+                StartDate = "2025-01-01",
                 EndDate = "2026-05-15"
-            };
+            });
+            BaseService.Create(BaseService.SCHOOL_YEAR_TERM ,new SchoolYearTerm
+            {
+                TermId = 2, 
+                SchoolYear = "2025-2026",
+                StartDate = "2025-06-01",
+                EndDate = "2026-10-15"
+            });
         }
     }
 

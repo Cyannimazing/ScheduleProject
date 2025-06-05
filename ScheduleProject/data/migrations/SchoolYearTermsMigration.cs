@@ -16,8 +16,8 @@ namespace ScheduleProject.data.migration
                     school_year DATE NOT NULL,
                     start_date TEXT NOT NULL,
                     end_date TEXT NOT NULL,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
                     UNIQUE (start_date, end_date),
                     FOREIGN KEY (term_id) REFERENCES Terms(id) ON UPDATE CASCADE ON DELETE RESTRICT
                 );

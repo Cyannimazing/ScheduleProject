@@ -51,8 +51,8 @@ namespace ScheduleProject.data.controller
                         TimeSlotId = Convert.ToInt32(reader[LecturerSchedule.COL_TIME_SLOT_ID]),
                         ClassId = Convert.ToInt32(reader[LecturerSchedule.COL_CLASS_ID]),
                         SchoolYearTermId = Convert.ToInt32(reader[LecturerSchedule.COL_SY_TERM_ID]),
-                        CreatedAt = (DateTime)reader[LecturerSchedule.COL_CREATED_AT],
-                        UpdatedAt = (DateTime)reader[LecturerSchedule.COL_UPDATED_AT]
+                        CreatedAt = reader[LecturerSchedule.COL_CREATED_AT].ToString(),
+                        UpdatedAt = reader[LecturerSchedule.COL_UPDATED_AT].ToString()
                     });
                 }
             }

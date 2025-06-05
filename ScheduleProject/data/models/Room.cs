@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScheduleProject.data.service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,12 +15,16 @@ namespace ScheduleProject.data.models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public static Room RoomSeeder()
+        public static void RoomSeeder()
         {
-            return new Room
+            BaseService.Create(BaseService.ROOM ,new Room
             {
                 Name = "Room A101"
-            };
+            });
+            BaseService.Create(BaseService.ROOM ,new Room
+            {
+                Name = "Room B101"
+            });
         }
     }
 

@@ -47,8 +47,8 @@ namespace ScheduleProject.data.controller
                         SchoolYear = reader[SchoolYearTerm.COL_SCHOOL_YEAR].ToString(),
                         StartDate = reader[SchoolYearTerm.COL_START_DATE].ToString(),
                         EndDate = reader[SchoolYearTerm.COL_END_DATE].ToString(),
-                        CreatedAt = (DateTime)reader[SchoolYearTerm.COL_CREATED_AT],
-                        UpdatedAt = (DateTime)reader[SchoolYearTerm.COL_UPDATED_AT]
+                        CreatedAt = reader[SchoolYearTerm.COL_CREATED_AT].ToString(),
+                        UpdatedAt = reader[SchoolYearTerm.COL_UPDATED_AT].ToString()
                     });
                 }
             }

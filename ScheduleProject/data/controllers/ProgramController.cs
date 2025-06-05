@@ -42,8 +42,8 @@ namespace ScheduleProject.data.controller
                         Id = Convert.ToInt32(reader[Program.COL_ID]),
                         Code = reader[Program.COL_CODE].ToString(),
                         Name = reader[Program.COL_NAME].ToString(),
-                        CreatedAt = (DateTime)reader[Program.COL_CREATED_AT],
-                        UpdatedAt = (DateTime)reader[Program.COL_UPDATED_AT]
+                        CreatedAt = reader[Program.COL_CREATED_AT].ToString(),
+                        UpdatedAt = reader[Program.COL_UPDATED_AT].ToString()
                     });
                 }
             }

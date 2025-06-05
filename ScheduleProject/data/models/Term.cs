@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScheduleProject.data.service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,12 +18,16 @@ namespace ScheduleProject.data.models
         public List<Subject> Subjects { get; set; }
         public List<SchoolYearTerm> SchoolYearTerms { get; set; }
 
-        public static Term TermSeeder()
+        public static void TermSeeder()
         {
-            return new Term
+            for(int i = 1;  i <= 2; i++)
             {
-                Name = "1st Semester"
-            };
+                Term term = new Term
+                {
+                    Name = $"{i} Semester"
+                };
+                BaseService.Create(BaseService.TERM, term);
+            }
         }
     }
 }

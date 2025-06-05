@@ -11,7 +11,7 @@ namespace ScheduleProject.data.models
         public static string COL_ID = "id";
         public static string COL_CREATED_AT = "created_at";
         public static string COL_UPDATED_AT = "updated_at";
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public string CreatedAt { get; set; } = DateTime.Now.ToString();
+        public string UpdatedAt { get; set; } = DateTime.Now.ToString();
     }
 }

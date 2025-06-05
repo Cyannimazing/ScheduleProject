@@ -21,6 +21,8 @@ namespace ScheduleProject.data.migration
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                     UNIQUE (room_code, time_slot_id, sy_term_id),
+                    UNIQUE (lecturer_id, time_slot_id, sy_term_id),
+                    UNIQUE (class_id, time_slot_id, sy_term_id),
                     FOREIGN KEY (lecturer_id) REFERENCES Lecturers(id) ON UPDATE CASCADE ON DELETE RESTRICT,
                     FOREIGN KEY (subj_code) REFERENCES Subjects(code) ON UPDATE CASCADE ON DELETE RESTRICT,
                     FOREIGN KEY (room_code) REFERENCES Rooms(name) ON UPDATE CASCADE ON DELETE RESTRICT,

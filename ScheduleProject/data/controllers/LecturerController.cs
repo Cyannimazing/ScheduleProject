@@ -45,8 +45,8 @@ namespace ScheduleProject.data.controller
                         Title = reader[Lecturer.COL_TITLE].ToString(),
                         FName = reader[Lecturer.COL_FNAME].ToString(),
                         LName = reader[Lecturer.COL_LNAME].ToString(),
-                        CreatedAt = (DateTime)reader[Lecturer.COL_CREATED_AT],
-                        UpdatedAt = (DateTime)reader[Lecturer.COL_UPDATED_AT]
+                        CreatedAt = reader[Lecturer.COL_CREATED_AT].ToString(),
+                        UpdatedAt = reader[Lecturer.COL_UPDATED_AT].ToString()
                     });
                 }
             }

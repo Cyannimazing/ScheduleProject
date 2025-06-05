@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScheduleProject.data.service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,13 +18,18 @@ namespace ScheduleProject.data.models
         public string ProgCode { get; set; }
         public Program Program { get; set; }
 
-        public static ClassGroup ClassGroupSeeder()
+        public static void ClassGroupSeeder()
         {
-            return new ClassGroup
+            BaseService.Create(BaseService.CLASS_GROUP, new ClassGroup
             {
                 Name = "CS-1A",
                 ProgCode = "BSCS" // Make sure this code exists in your Program table
-            };
+            });
+            BaseService.Create(BaseService.CLASS_GROUP, new ClassGroup
+            {
+                Name = "HM-1A",
+                ProgCode = "BSHM" // Make sure this code exists in your Program table
+            });
         }
     }
 }

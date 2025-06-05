@@ -43,8 +43,8 @@ namespace ScheduleProject.data.controller
                         Id = Convert.ToInt32(reader[ClassGroup.COL_ID]),
                         Name = reader[ClassGroup.COL_NAME].ToString(),
                         ProgCode = reader[ClassGroup.COL_PROGCODE].ToString(),
-                        CreatedAt = (DateTime)reader[ClassGroup.COL_CREATED_AT],
-                        UpdatedAt = (DateTime)reader[ClassGroup.COL_UPDATED_AT]
+                        CreatedAt = reader[ClassGroup.COL_CREATED_AT].ToString(),
+                        UpdatedAt = reader[ClassGroup.COL_UPDATED_AT].ToString()
                     });
                 }
             }
