@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.ConstrainedExecution;
 using System.Windows.Forms;
+using ScheduleProject.data.models;
+using ScheduleProject.data.service;
+using ScheduleProject.InputForm;
 
 namespace ScheduleProject
 {
@@ -11,6 +15,7 @@ namespace ScheduleProject
         private Color accentColor = ColorTranslator.FromHtml("#7077A1");
         private Color lightColor = ColorTranslator.FromHtml("#F1F6F9");
         private Color hoverColor = ColorTranslator.FromHtml("#525C94");
+        private Program program;
 
         public UC_Programs()
         {
@@ -31,9 +36,24 @@ namespace ScheduleProject
             dataGridViewPrograms.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
+        public void LoadAllPrograms()
+        {
+
+            var programsList = BaseService.GetAll(BaseService.PROGRAM);
+            
+
+            //dataGridViewPrograms.Rows.Clear();
+
+            //foreach (var program in programsList)
+            //{
+            //    dataGridViewPrograms.Rows.Add();
+            //}
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            // Placeholder for Add form
+            ProgramsForm programsForm = new ProgramsForm();
+            programsForm.Show();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)

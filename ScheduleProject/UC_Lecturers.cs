@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ScheduleProject.InputForm;
 
 namespace ScheduleProject
 {
@@ -41,7 +42,8 @@ namespace ScheduleProject
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Add new lecturer functionality not implemented.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LecturersForm lecturersForm = new LecturersForm();
+            lecturersForm.ShowDialog();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)

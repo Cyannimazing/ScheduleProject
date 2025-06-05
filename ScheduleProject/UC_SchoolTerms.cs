@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ScheduleProject.InputForm;
 
 namespace ScheduleProject
 {
@@ -40,7 +41,8 @@ namespace ScheduleProject
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Add new school term functionality not implemented.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            SYTermsForm sYTermsForm = new SYTermsForm();
+            sYTermsForm.ShowDialog();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)

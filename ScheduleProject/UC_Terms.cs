@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ScheduleProject.InputForm;
 
 namespace ScheduleProject
 {
@@ -33,7 +34,8 @@ namespace ScheduleProject
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            // Placeholder for Add form
+            TermsForm termsForm = new TermsForm();
+            termsForm.ShowDialog();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
