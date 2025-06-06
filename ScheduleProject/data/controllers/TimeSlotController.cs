@@ -48,6 +48,7 @@ namespace ScheduleProject.data.controller
                     });
                 }
             }
+            db.Close();
             return list;
         }
 

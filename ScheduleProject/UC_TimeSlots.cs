@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ScheduleProject.data.models;
+using ScheduleProject.data.service;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -30,12 +32,19 @@ namespace ScheduleProject
             dataGridViewTimeSlots.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             dataGridViewTimeSlots.EnableHeadersVisualStyles = false;
             dataGridViewTimeSlots.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            
         }
 
         private void LoadSampleData()
         {
-            dataGridViewTimeSlots.Rows.Add(1, "Monday", "08:00:00", "09:00:00", DateTime.Now);
-            dataGridViewTimeSlots.Rows.Add(2, "Tuesday", "09:00:00", "10:00:00", DateTime.Now);
+            var timeslots = BaseService.GetAll(BaseService.TIME_SLOT);
+            dataGridViewTimeSlots.Rows.Clear();
+
+            foreach (TimeSlot timeslot in timeslots)
+            {
+                dataGridViewTimeSlots.Rows.Add(timeslot.Id, timeslot.DayOfWeek, timeslot.StartTime, timeslot.EndTime);
+            }
+            
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

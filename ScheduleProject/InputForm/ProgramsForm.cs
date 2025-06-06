@@ -10,7 +10,7 @@ namespace ScheduleProject.InputForm
     {
 
 
-        Program program;
+        private Program program;
         public ProgramsForm()
         {
             InitializeComponent();

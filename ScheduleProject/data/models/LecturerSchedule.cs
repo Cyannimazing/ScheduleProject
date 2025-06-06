@@ -38,7 +38,7 @@ namespace ScheduleProject.data.models
                 SubjCode = "Cookery 101",
                 RoomCode = "Room A101",
                 TimeSlotId = 1,
-                ClassId = 2,
+                ClassId = 1,
                 SchoolYearTermId = 1
             };
         }

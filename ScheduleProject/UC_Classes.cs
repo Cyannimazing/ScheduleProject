@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ScheduleProject.data.models;
+using ScheduleProject.data.service;
 using ScheduleProject.InputForm;
 
 namespace ScheduleProject
@@ -31,18 +33,26 @@ namespace ScheduleProject
             dataGridViewClasses.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             dataGridViewClasses.EnableHeadersVisualStyles = false;
             dataGridViewClasses.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewClasses.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void LoadSampleData()
         {
-            dataGridViewClasses.Rows.Add(1, "Class A", "CS101", DateTime.Now, DateTime.Now);
-            dataGridViewClasses.Rows.Add(2, "Class B", "CS102", DateTime.Now, DateTime.Now);
+            var classes = BaseService.GetAll(BaseService.CLASS_GROUP);
+            dataGridViewClasses.Rows.Clear();
+
+            foreach (ClassGroup c in classes)
+            {
+                dataGridViewClasses.Rows.Add(c.Id, c.Name, c.ProgCode, c.CreatedAt, c.UpdatedAt);
+                dataGridViewClasses.ClearSelection();
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             ClassesForm classesForm = new ClassesForm();
             classesForm.ShowDialog();
+            LoadSampleData(); 
         }
 
         private void btnEdit_Click(object sender, EventArgs e)

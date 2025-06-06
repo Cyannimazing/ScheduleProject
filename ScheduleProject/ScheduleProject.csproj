@@ -138,6 +138,7 @@
     <Compile Include="InputForm\ClassesForm.Designer.cs">
       <DependentUpon>ClassesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InputForm\BaseInput.cs" />
     <Compile Include="InputForm\LecturersForm.cs">
       <SubType>Form</SubType>
     </Compile>

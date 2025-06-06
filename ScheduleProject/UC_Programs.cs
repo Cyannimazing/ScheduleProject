@@ -21,6 +21,7 @@ namespace ScheduleProject
         {
             InitializeComponent();
             InitializeDataGridView();
+            LoadAllPrograms();
         }
 
         private void InitializeDataGridView()
@@ -38,27 +39,30 @@ namespace ScheduleProject
 
         public void LoadAllPrograms()
         {
-
             var programsList = BaseService.GetAll(BaseService.PROGRAM);
-            
+            dataGridViewPrograms.Rows.Clear();
 
-            //dataGridViewPrograms.Rows.Clear();
-
-            //foreach (var program in programsList)
-            //{
-            //    dataGridViewPrograms.Rows.Add();
-            //}
+            foreach (Program program in programsList)
+            {
+                dataGridViewPrograms.Rows.Add(program.Id, program.Code, program.Name, program.CreatedAt, program.UpdatedAt);
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             ProgramsForm programsForm = new ProgramsForm();
-            programsForm.Show();
+            programsForm.ShowDialog();
+            LoadAllPrograms();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            // Placeholder for Edit form
+            //var selected = dataGridViewPrograms.SelectedRows;
+            //foreach (DataGridViewRow item in selected)
+            //{
+            //    var value = item.Cells[1].Value;
+            //    MessageBox.Show(value.ToString());
+            //}
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -68,7 +72,7 @@ namespace ScheduleProject
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            // Placeholder for data refresh
+            LoadAllPrograms();
         }
 
         private void Button_MouseEnter(object sender, EventArgs e)
