@@ -41,6 +41,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.startYear = new System.Windows.Forms.DateTimePicker();
+            this.endYear = new System.Windows.Forms.DateTimePicker();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnClose
@@ -124,7 +128,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.label5.Location = new System.Drawing.Point(58, 120);
+            this.label5.Location = new System.Drawing.Point(58, 89);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(48, 21);
@@ -135,15 +139,16 @@
             // 
             this.cb_Term.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.cb_Term.FormattingEnabled = true;
-            this.cb_Term.Location = new System.Drawing.Point(62, 144);
+            this.cb_Term.Location = new System.Drawing.Point(62, 113);
             this.cb_Term.Name = "cb_Term";
             this.cb_Term.Size = new System.Drawing.Size(244, 29);
             this.cb_Term.TabIndex = 23;
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.CustomFormat = "yyyy";
             this.dateTimePicker1.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.dateTimePicker1.Location = new System.Drawing.Point(62, 200);
+            this.dateTimePicker1.Location = new System.Drawing.Point(62, 225);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(244, 29);
             this.dateTimePicker1.TabIndex = 25;
@@ -153,7 +158,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.label2.Location = new System.Drawing.Point(58, 176);
+            this.label2.Location = new System.Drawing.Point(58, 201);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(86, 21);
@@ -165,7 +170,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.label3.Location = new System.Drawing.Point(58, 232);
+            this.label3.Location = new System.Drawing.Point(58, 257);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 21);
@@ -175,10 +180,52 @@
             // dateTimePicker2
             // 
             this.dateTimePicker2.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.dateTimePicker2.Location = new System.Drawing.Point(62, 256);
+            this.dateTimePicker2.Location = new System.Drawing.Point(62, 281);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(244, 29);
             this.dateTimePicker2.TabIndex = 27;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.label1.Location = new System.Drawing.Point(58, 145);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(99, 21);
+            this.label1.TabIndex = 30;
+            this.label1.Text = "School Year";
+            // 
+            // startYear
+            // 
+            this.startYear.CustomFormat = "yyyy";
+            this.startYear.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.startYear.Location = new System.Drawing.Point(62, 169);
+            this.startYear.Name = "startYear";
+            this.startYear.Size = new System.Drawing.Size(107, 29);
+            this.startYear.TabIndex = 31;
+            // 
+            // endYear
+            // 
+            this.endYear.CustomFormat = "yyyy";
+            this.endYear.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.endYear.Location = new System.Drawing.Point(199, 169);
+            this.endYear.Name = "endYear";
+            this.endYear.Size = new System.Drawing.Size(107, 29);
+            this.endYear.TabIndex = 32;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.label4.Location = new System.Drawing.Point(176, 173);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(16, 21);
+            this.label4.TabIndex = 33;
+            this.label4.Text = "-";
             // 
             // SYTermsForm
             // 
@@ -186,6 +233,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(373, 412);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.endYear);
+            this.Controls.Add(this.startYear);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.label2);
@@ -223,5 +274,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DateTimePicker startYear;
+        private System.Windows.Forms.DateTimePicker endYear;
+        private System.Windows.Forms.Label label4;
     }
 }
