@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ScheduleProject.data.models;
+using ScheduleProject.data.service;
+using ScheduleProject.InputForm;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ScheduleProject.InputForm;
 
 namespace ScheduleProject
 {
@@ -35,14 +37,20 @@ namespace ScheduleProject
 
         private void LoadSampleData()
         {
-            dataGridViewSubjects.Rows.Add(1, "CS101", "Introduction to Programming", 3, false, 1, DateTime.Now, DateTime.Now);
-            dataGridViewSubjects.Rows.Add(2, "CS102", "Data Structures", 3, false, 1, DateTime.Now, DateTime.Now);
+            var programsList = BaseService.GetAll(BaseService.SUBJECT);
+            dataGridViewSubjects.Rows.Clear();
+
+            foreach (Subject subject in programsList)
+            {
+                dataGridViewSubjects.Rows.Add(subject.Id, subject.Code, subject.Name, subject.Unit, subject.IsGenEd, subject.TermId, subject.CreatedAt, subject.UpdatedAt);
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
            SubjectsForm subjectsForm = new SubjectsForm();
            subjectsForm.ShowDialog();
+            LoadSampleData();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)

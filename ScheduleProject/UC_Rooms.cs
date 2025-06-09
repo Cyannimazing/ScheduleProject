@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ScheduleProject.data.models;
+using ScheduleProject.data.service;
+using ScheduleProject.InputForm;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ScheduleProject.InputForm;
 
 namespace ScheduleProject
 {
@@ -35,14 +37,21 @@ namespace ScheduleProject
 
         private void LoadSampleData()
         {
-            dataGridViewRooms.Rows.Add(1, "Room 101", DateTime.Now, DateTime.Now);
-            dataGridViewRooms.Rows.Add(2, "Room 102", DateTime.Now, DateTime.Now);
+            var roomList = BaseService.GetAll(BaseService.ROOM);
+            dataGridViewRooms.Rows.Clear();
+
+            foreach (Room room in roomList)
+            {
+                dataGridViewRooms.Rows.Add(room.Id, room.Name, room.CreatedAt, room.UpdatedAt);
+            }
+
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             RoomsForm roomsForm = new RoomsForm();
             roomsForm.ShowDialog();
+            LoadSampleData();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)

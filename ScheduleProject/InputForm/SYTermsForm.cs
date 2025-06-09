@@ -15,6 +15,7 @@ namespace ScheduleProject.InputForm
         public SYTermsForm()
         {
             InitializeComponent();
+            
         }
         public void LoadTerm()
         {

@@ -192,6 +192,7 @@
             this.rb_Yes.TabStop = true;
             this.rb_Yes.Text = "Yes";
             this.rb_Yes.UseVisualStyleBackColor = true;
+            this.rb_Yes.CheckedChanged += new System.EventHandler(this.rb_Yes_CheckedChanged);
             // 
             // rb_No
             // 
