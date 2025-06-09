@@ -16,8 +16,12 @@ namespace ScheduleProject.InputForm
         public SYTermsForm()
         {
             InitializeComponent();
+<<<<<<< HEAD
+            
+=======
             YearOnly();
 
+>>>>>>> d78f5a3455eaaa482e5812e5026591ef8dd79c24
         }
         public void LoadTerm()
         {
