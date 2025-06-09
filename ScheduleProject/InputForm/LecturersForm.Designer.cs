@@ -31,18 +31,16 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.tb_Name = new System.Windows.Forms.TextBox();
+            this.tb_fName = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.ProramForm = new System.Windows.Forms.Label();
-            this.tb_Code = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tb_Title = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tb_lastName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnClose
@@ -85,13 +83,13 @@
             this.label2.TabIndex = 18;
             this.label2.Text = "First Name";
             // 
-            // tb_Name
+            // tb_fName
             // 
-            this.tb_Name.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_Name.Location = new System.Drawing.Point(62, 207);
-            this.tb_Name.Name = "tb_Name";
-            this.tb_Name.Size = new System.Drawing.Size(158, 29);
-            this.tb_Name.TabIndex = 17;
+            this.tb_fName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_fName.Location = new System.Drawing.Point(62, 207);
+            this.tb_fName.Name = "tb_fName";
+            this.tb_fName.Size = new System.Drawing.Size(244, 29);
+            this.tb_fName.TabIndex = 17;
             // 
             // panel4
             // 
@@ -153,33 +151,13 @@
             this.ProramForm.Text = "Lecturer";
             this.ProramForm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tb_Code
+            // tb_Title
             // 
-            this.tb_Code.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_Code.Location = new System.Drawing.Point(62, 142);
-            this.tb_Code.Name = "tb_Code";
-            this.tb_Code.Size = new System.Drawing.Size(244, 29);
-            this.tb_Code.TabIndex = 10;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.label3.Location = new System.Drawing.Point(222, 183);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 21);
-            this.label3.TabIndex = 22;
-            this.label3.Text = "M.I.";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(226, 207);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(80, 29);
-            this.textBox1.TabIndex = 21;
+            this.tb_Title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_Title.Location = new System.Drawing.Point(62, 142);
+            this.tb_Title.Name = "tb_Title";
+            this.tb_Title.Size = new System.Drawing.Size(244, 29);
+            this.tb_Title.TabIndex = 10;
             // 
             // label4
             // 
@@ -193,13 +171,13 @@
             this.label4.TabIndex = 24;
             this.label4.Text = "Last Name";
             // 
-            // textBox2
+            // tb_lastName
             // 
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(62, 271);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(244, 29);
-            this.textBox2.TabIndex = 23;
+            this.tb_lastName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_lastName.Location = new System.Drawing.Point(62, 271);
+            this.tb_lastName.Name = "tb_lastName";
+            this.tb_lastName.Size = new System.Drawing.Size(244, 29);
+            this.tb_lastName.TabIndex = 23;
             // 
             // LecturersForm
             // 
@@ -207,20 +185,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(373, 442);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tb_lastName);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.tb_Name);
+            this.Controls.Add(this.tb_fName);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ProramForm);
-            this.Controls.Add(this.tb_Code);
+            this.Controls.Add(this.tb_Title);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "LecturersForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -235,17 +211,15 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox tb_Name;
+        private System.Windows.Forms.TextBox tb_fName;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label ProramForm;
-        private System.Windows.Forms.TextBox tb_Code;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tb_Title;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tb_lastName;
     }
 }

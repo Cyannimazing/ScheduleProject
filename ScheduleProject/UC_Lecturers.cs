@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ScheduleProject.data.models;
+using ScheduleProject.data.service;
 using ScheduleProject.InputForm;
 
 namespace ScheduleProject
@@ -17,7 +19,7 @@ namespace ScheduleProject
         {
             InitializeComponent();
             InitializeDataGridView();
-            LoadSampleData();
+            LoadAllLecturers();
         }
 
         private void InitializeDataGridView()
@@ -33,11 +35,15 @@ namespace ScheduleProject
             dataGridViewLecturers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        private void LoadSampleData()
+        private void LoadAllLecturers()
         {
-            // Placeholder data (replace with actual database query)
-            dataGridViewLecturers.Rows.Add(1, "Dr.", "John", "Doe", DateTime.Now, DateTime.Now);
-            dataGridViewLecturers.Rows.Add(2, "Prof.", "Jane", "Smith", DateTime.Now, DateTime.Now);
+            var lecturerList = BaseService.GetAll(BaseService.LECTURER);
+            dataGridViewLecturers.Rows.Clear();
+
+            foreach (Lecturer lecturer in lecturerList)
+            {
+                dataGridViewLecturers.Rows.Add(lecturer.Id, lecturer.Title, lecturer.FName, lecturer.LName, lecturer.CreatedAt, lecturer.UpdatedAt);
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -59,7 +65,7 @@ namespace ScheduleProject
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             dataGridViewLecturers.Rows.Clear();
-            LoadSampleData();
+            LoadAllLecturers();
         }
 
         private void Button_MouseEnter(object sender, EventArgs e)

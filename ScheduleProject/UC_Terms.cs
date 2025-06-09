@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ScheduleProject.data.models;
+using ScheduleProject.data.service;
 using ScheduleProject.InputForm;
 
 namespace ScheduleProject
@@ -17,6 +19,7 @@ namespace ScheduleProject
         {
             InitializeComponent();
             InitializeDataGridView();
+            LoadAllTerms();
         }
 
         private void InitializeDataGridView()
@@ -66,6 +69,17 @@ namespace ScheduleProject
             if (sender is Button btn)
             {
                 btn.BackColor = accentColor;
+            }
+        }
+
+        public void LoadAllTerms()
+        {
+            var termsList = BaseService.GetAll(BaseService.TERM);
+            dataGridViewTerms.Rows.Clear();
+
+            foreach (Term term in termsList)
+            {
+                dataGridViewTerms.Rows.Add(term.Id, term.Name, term.CreatedAt, term.UpdatedAt);
             }
         }
     }

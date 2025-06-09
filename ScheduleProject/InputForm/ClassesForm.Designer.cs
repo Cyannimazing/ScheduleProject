@@ -37,7 +37,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.ProramForm = new System.Windows.Forms.Label();
-            this.tb_Code = new System.Windows.Forms.TextBox();
+            this.tb_Name = new System.Windows.Forms.TextBox();
             this.cb_program = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
@@ -141,13 +141,13 @@
             this.ProramForm.TabIndex = 11;
             this.ProramForm.Text = "Classes";
             // 
-            // tb_Code
+            // tb_Name
             // 
-            this.tb_Code.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_Code.Location = new System.Drawing.Point(62, 142);
-            this.tb_Code.Name = "tb_Code";
-            this.tb_Code.Size = new System.Drawing.Size(244, 29);
-            this.tb_Code.TabIndex = 10;
+            this.tb_Name.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_Name.Location = new System.Drawing.Point(62, 142);
+            this.tb_Name.Name = "tb_Name";
+            this.tb_Name.Size = new System.Drawing.Size(244, 29);
+            this.tb_Name.TabIndex = 10;
             // 
             // cb_program
             // 
@@ -174,7 +174,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ProramForm);
-            this.Controls.Add(this.tb_Code);
+            this.Controls.Add(this.tb_Name);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ClassesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -195,7 +195,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label ProramForm;
-        private System.Windows.Forms.TextBox tb_Code;
+        private System.Windows.Forms.TextBox tb_Name;
         private System.Windows.Forms.ComboBox cb_program;
     }
 }
