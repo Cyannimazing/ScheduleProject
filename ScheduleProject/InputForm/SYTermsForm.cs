@@ -27,7 +27,6 @@ namespace ScheduleProject.InputForm
         private void btnAdd_Click(object sender, EventArgs e)
         {
             //ADD SY
-            Trace.WriteLine("Hello");
         }
 
         private void btnClose_Click(object sender, EventArgs e)
