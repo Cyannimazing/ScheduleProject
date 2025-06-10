@@ -17,7 +17,6 @@ namespace ScheduleProject.data.models
         public static string COL_IS_GEN_ED = "is_gen_ed";
         public static string COL_TERM_ID = "term_id";
 
-        public int Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public short Unit { get; set; } = 3;

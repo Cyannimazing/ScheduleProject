@@ -220,6 +220,7 @@
             // 
             // endYear
             // 
+
             this.endYear.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.endYear.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.endYear.Location = new System.Drawing.Point(199, 169);

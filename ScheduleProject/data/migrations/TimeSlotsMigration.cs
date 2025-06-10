@@ -14,8 +14,17 @@ namespace ScheduleProject.data.migration
                     id INTEGER PRIMARY KEY,
                     day TEXT NOT NULL,
                     time TEXT NOT NULL,
-                    UNIQUE (day, time)
-                );";
+                    UNIQUE (day, time),
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    
+                );
+                CREATE TRIGGER IF NOT EXISTS update_time_slots
+                AFTER UPDATE ON TimeSlots
+                BEGIN
+                    UPDATE TimeSlots SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
+                END;
+                ";
         }
     }
 }

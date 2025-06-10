@@ -16,7 +16,6 @@ namespace ScheduleProject.data.models
         public static string COL_START_DATE = "start_date";
         public static string COL_END_DATE = "end_date";
 
-        public int Id { get; set; }
         public int TermId { get; set; }
         public Term Term { get; set; }
         public string SchoolYear { get; set; }

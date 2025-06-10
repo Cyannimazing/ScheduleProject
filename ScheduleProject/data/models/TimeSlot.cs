@@ -17,7 +17,6 @@ namespace ScheduleProject.data.models
         public static string COL_DAY = "day";
         public static string COL_TIME = "time";
 
-        public int Id { get; set; }
         public string DayOfWeek { get; set; }
         public string Time { get; set; }
 

@@ -13,7 +13,6 @@ namespace ScheduleProject.data.models
         public static string TBL_NAME = "Rooms";
         public static string COL_NAME = "name";
 
-        public int Id { get; set; }
         public string Name { get; set; }
 
         public static void RoomSeeder()

@@ -23,12 +23,12 @@ namespace ScheduleProject.data.migration
                     UNIQUE (room_code, time_slot_id, sy_term_id),
                     UNIQUE (lecturer_id, time_slot_id, sy_term_id),
                     UNIQUE (class_id, time_slot_id, sy_term_id),
-                    FOREIGN KEY (lecturer_id) REFERENCES Lecturers(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-                    FOREIGN KEY (subj_code) REFERENCES Subjects(code) ON UPDATE CASCADE ON DELETE RESTRICT,
-                    FOREIGN KEY (room_code) REFERENCES Rooms(name) ON UPDATE CASCADE ON DELETE RESTRICT,
-                    FOREIGN KEY (time_slot_id) REFERENCES Time_Slots(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-                    FOREIGN KEY (class_id) REFERENCES Classes(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-                    FOREIGN KEY (sy_term_id) REFERENCES School_Year_Terms(id) ON UPDATE CASCADE ON DELETE RESTRICT
+                    FOREIGN KEY (lecturer_id) REFERENCES Lecturers(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                    FOREIGN KEY (subj_code) REFERENCES Subjects(code) ON UPDATE CASCADE ON DELETE CASCADE,
+                    FOREIGN KEY (room_code) REFERENCES Rooms(name) ON UPDATE CASCADE ON DELETE CASCADE,
+                    FOREIGN KEY (time_slot_id) REFERENCES Time_Slots(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                    FOREIGN KEY (class_id) REFERENCES Classes(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                    FOREIGN KEY (sy_term_id) REFERENCES School_Year_Terms(id) ON UPDATE CASCADE ON DELETE CASCADE
                 );
 
                 CREATE TRIGGER IF NOT EXISTS update_lecturer_schedules_timestamp 
