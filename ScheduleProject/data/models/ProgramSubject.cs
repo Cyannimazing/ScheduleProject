@@ -24,6 +24,9 @@ namespace ScheduleProject.data.models
 
         public string YearLevel {  get; set; }
 
+        public int TermId { get; set; }
+        public Term Term{ get; set; }
+
         public static ProgramSubject ProgramSubjectSeeder()
         {
             return new ProgramSubject
