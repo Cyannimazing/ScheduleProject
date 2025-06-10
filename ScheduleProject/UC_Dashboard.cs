@@ -58,30 +58,10 @@ namespace ScheduleProject
             cmbClass.SelectedIndex = 0;
             cmbLecturer.SelectedIndex = 0;
             cmbRoom.SelectedIndex = 0;
-
-<<<<<<< HEAD
-            btnApplyFilter.Click += BtnApplyFilter_Click;
-
             isGridInitialized = false;
 
         }
 
-
-        private void BtnApplyFilter_Click(object sender, EventArgs e)
-        {
-            UpdateScheduleGridAsync();
-=======
-            // Add event handlers for immediate filtering
-            cmbClass.SelectedIndexChanged += (s, e) => UpdateScheduleGridAsync();
-            cmbLecturer.SelectedIndexChanged += (s, e) => UpdateScheduleGridAsync();
-            cmbRoom.SelectedIndexChanged += (s, e) => UpdateScheduleGridAsync();
-
-            generate_report.Click += generate_report_Click;
-
-            isGridInitialized = false;
-            currentEntries = new ArrayList();
->>>>>>> 923157f146520770cc894db0c3b8975e77d6a71e
-        }
 
         private void UC_Dashboard_Load(object sender, EventArgs e)
         {
@@ -89,11 +69,8 @@ namespace ScheduleProject
             {
                 CreateScheduleGrid();
                 isGridInitialized = true;
-<<<<<<< HEAD
-=======
                 LoadSampleData();
                 UpdateScheduleGridAsync(); // Initial load
->>>>>>> 923157f146520770cc894db0c3b8975e77d6a71e
             }
         }
 
@@ -118,27 +95,9 @@ namespace ScheduleProject
                 scheduleTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 6));
             }
 
-            // Row heights
-            scheduleTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 40f)); // Header row
-<<<<<<< HEAD
-            for (int i = 1; i < 25; i++)
-            {
-                scheduleTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / 24));
-            }
-
-            // Pre-allocate headers and time slots
-            string[] dayNames = { "Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
-            for (int i = 0; i < dayNames.Length; i++)
-=======
-            for (int i = 1; i <= timeSlots.Length; i++)
-            {
-                scheduleTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / timeSlots.Length));
-            }
-
             // Headers and time slots
             string[] headers = { "Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
             for (int i = 0; i < headers.Length; i++)
->>>>>>> 923157f146520770cc894db0c3b8975e77d6a71e
             {
                 Label label = new Label
                 {

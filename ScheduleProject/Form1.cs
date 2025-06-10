@@ -82,8 +82,8 @@ namespace ScheduleProject
             // Add icons to buttons using Unicode symbols from Segoe UI Symbol font
             AddIconToButton(btnDashboard, "🏠");
             AddIconToButton(btnPrograms, "📋");
-            AddIconToButton(btnTerms, "🗓️");
             AddIconToButton(btnLecturers, "👥");
+            AddIconToButton(btnTerms, "🗓️");
             AddIconToButton(btnClasses, "🏫");
             AddIconToButton(btnSubjects, "📚");
             AddIconToButton(btnRooms, "🚪");

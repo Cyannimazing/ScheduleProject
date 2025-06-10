@@ -29,10 +29,6 @@ namespace ScheduleProject
             this.scheduleGridPanel = new System.Windows.Forms.Panel();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.filterPanel.SuspendLayout();
-<<<<<<< HEAD
-            this.loadingPanel.SuspendLayout();
-=======
->>>>>>> 923157f146520770cc894db0c3b8975e77d6a71e
             this.SuspendLayout();
             // 
             // filterPanel
@@ -128,39 +124,16 @@ namespace ScheduleProject
             // scheduleGridPanel
             // 
             this.scheduleGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-<<<<<<< HEAD
             this.scheduleGridPanel.Location = new System.Drawing.Point(0, 43);
             this.scheduleGridPanel.Name = "scheduleGridPanel";
             this.scheduleGridPanel.Size = new System.Drawing.Size(686, 434);
             this.scheduleGridPanel.TabIndex = 2;
             // 
-            // loadingPanel
-            // 
-            this.loadingPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.loadingPanel.Controls.Add(this.loadingLabel);
-            this.loadingPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.loadingPanel.Location = new System.Drawing.Point(0, 43);
-            this.loadingPanel.Name = "loadingPanel";
-            this.loadingPanel.Size = new System.Drawing.Size(686, 434);
-            this.loadingPanel.TabIndex = 3;
-            this.loadingPanel.Visible = false;
-            // 
-            // loadingLabel
-            // 
-            this.loadingLabel.AutoSize = true;
-            this.loadingLabel.Location = new System.Drawing.Point(300, 173);
-            this.loadingLabel.Name = "loadingLabel";
-            this.loadingLabel.Size = new System.Drawing.Size(54, 13);
-            this.loadingLabel.TabIndex = 0;
-            this.loadingLabel.Text = "Loading...";
-            // 
-=======
             this.scheduleGridPanel.Location = new System.Drawing.Point(0, 83);
             this.scheduleGridPanel.Name = "scheduleGridPanel";
             this.scheduleGridPanel.Size = new System.Drawing.Size(1143, 462);
             this.scheduleGridPanel.TabIndex = 2;
-            // 
->>>>>>> 923157f146520770cc894db0c3b8975e77d6a71e
+            //
             // UC_Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -172,11 +145,6 @@ namespace ScheduleProject
             this.Load += new System.EventHandler(this.UC_Dashboard_Load);
             this.filterPanel.ResumeLayout(false);
             this.filterPanel.PerformLayout();
-<<<<<<< HEAD
-            this.loadingPanel.ResumeLayout(false);
-            this.loadingPanel.PerformLayout();
-=======
->>>>>>> 923157f146520770cc894db0c3b8975e77d6a71e
             this.ResumeLayout(false);
 
         }
