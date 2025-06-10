@@ -44,7 +44,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.startYear = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
-            this.endYear = new System.Windows.Forms.DateTimePicker();
+            this.endYear = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnClose
@@ -220,8 +220,7 @@
             // 
             // endYear
             // 
-            this.endYear.CustomFormat = "yyyy";
-            this.endYear.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.endYear.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.endYear.Location = new System.Drawing.Point(199, 169);
             this.endYear.Name = "endYear";
             this.endYear.Size = new System.Drawing.Size(107, 29);
@@ -277,6 +276,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker startYear;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DateTimePicker endYear;
+        private System.Windows.Forms.TextBox endYear;
     }
 }
