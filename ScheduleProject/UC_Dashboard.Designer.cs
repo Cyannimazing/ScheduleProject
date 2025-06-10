@@ -58,9 +58,9 @@ namespace ScheduleProject
             this.generate_report.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.generate_report.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.generate_report.ForeColor = System.Drawing.SystemColors.Control;
-            this.generate_report.Location = new System.Drawing.Point(952, 18);
+            this.generate_report.Location = new System.Drawing.Point(952, 20);
             this.generate_report.Name = "generate_report";
-            this.generate_report.Size = new System.Drawing.Size(188, 49);
+            this.generate_report.Size = new System.Drawing.Size(188, 45);
             this.generate_report.TabIndex = 7;
             this.generate_report.Text = "Generate Report";
             this.generate_report.UseVisualStyleBackColor = false;
