@@ -31,9 +31,10 @@ namespace ScheduleProject
             //TimeSlot.TimeSlotSeeder();
             //Program.ProgramSeeder();
             //Lecturer.LecturerSeeder();
-            //Term.TermSeeder();
+            Term.TermSeeder();
             //Room.RoomSeeder();
             //Subject.SubjectSeeder();
+            Subject.SubjectSeeder();
             //ClassGroup.ClassGroupSeeder();
             //SchoolYearTerm.SchoolYearTermSeeder();
 
