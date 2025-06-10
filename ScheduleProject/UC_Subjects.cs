@@ -43,7 +43,7 @@ namespace ScheduleProject
 
             foreach (Subject subject in programsList)
             {
-                dataGridViewSubjects.Rows.Add(subject.Id, subject.Code, subject.Name, subject.Unit, subject.IsGenEd, subject.TermId, subject.CreatedAt, subject.UpdatedAt);
+                dataGridViewSubjects.Rows.Add(subject.Id, subject.Code, subject.Name, subject.Unit, subject.IsGenEd, subject.CreatedAt, subject.UpdatedAt);
             }
         }
 
