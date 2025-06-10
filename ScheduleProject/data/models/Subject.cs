@@ -1,4 +1,5 @@
-﻿using ScheduleProject.data.service;
+﻿using ScheduleProject.data.controllers;
+using ScheduleProject.data.service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace ScheduleProject.data.models
 
         public static void SubjectSeeder()
         {
-            BaseService.Create(BaseService.SUBJECT, new Subject
+            BaseService.Create(Controller.SUBJECT, new Subject
             {
                 Code = "CS101",
                 Name = "Introduction to Computer Science",
@@ -37,7 +38,7 @@ namespace ScheduleProject.data.models
                 IsGenEd = false,
                 TermId = 1 // You can change this based on the actual existing Term ID
             });
-            BaseService.Create(BaseService.SUBJECT, new Subject
+            BaseService.Create(Controller.SUBJECT, new Subject
             {
                 Code = "EN101",
                 Name = "English 1",
@@ -45,7 +46,7 @@ namespace ScheduleProject.data.models
                 IsGenEd = true,
                 TermId = 1 // You can change this based on the actual existing Term ID
             });
-            BaseService.Create(BaseService.SUBJECT, new Subject
+            BaseService.Create(Controller.SUBJECT, new Subject
             {
                 Code = "Cookery 101",
                 Name = "Cookery 1",

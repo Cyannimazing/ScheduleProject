@@ -16,9 +16,8 @@ namespace ScheduleProject.data.controller
 
             var m = model as models.ClassGroup;
 
-            var query = db.CreateCommand();
-            query.CommandText = @"INSERT INTO Classes(name, prog_code)
-                              VALUES (@name, @prog_code);";
+            var query = DatabaseService.createQuery(@"INSERT INTO Classes(name, prog_code)
+                              VALUES (@name, @prog_code);", db);
 
             query.Parameters.AddWithValue("@name", m.Name);
             query.Parameters.AddWithValue("@prog_code", m.ProgCode);
@@ -29,8 +28,7 @@ namespace ScheduleProject.data.controller
         public List<Model> GetAll()
         {
             var db = DatabaseService.getConnection();
-            var query = db.CreateCommand();
-            query.CommandText = $@"SELECT * FROM {ClassGroup.TBL_NAME}";
+            var query = DatabaseService.createQuery($@"SELECT * FROM {ClassGroup.TBL_NAME}", db);
 
             var classes = new List<Model>();
 

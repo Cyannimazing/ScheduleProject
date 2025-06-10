@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ScheduleProject.data.controllers;
 using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 
@@ -36,7 +37,7 @@ namespace ScheduleProject.InputForm
 
                 try
                 {
-                    int result = BaseService.Create(BaseService.CLASS_GROUP, classGroup);
+                    int result = BaseService.Create(Controller.CLASS_GROUP, classGroup);
                     if (result == 1)
                     {
                         MessageBox.Show($"ClassGroup added successfully! {result} row(s) inserted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -70,7 +71,7 @@ namespace ScheduleProject.InputForm
         public void LoadProgram()
         {
             //Load CB Program GetAll Program
-            var programsList = BaseService.GetAll(BaseService.PROGRAM);
+            var programsList = BaseService.GetAll(Controller.PROGRAM);
 
             cb_program.Items.Clear(); 
             foreach (Program program in programsList)

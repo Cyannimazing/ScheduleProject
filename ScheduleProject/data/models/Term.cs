@@ -1,4 +1,5 @@
-﻿using ScheduleProject.data.service;
+﻿using ScheduleProject.data.controllers;
+using ScheduleProject.data.service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace ScheduleProject.data.models
                 {
                     Name = $"{i} Semester"
                 };
-                BaseService.Create(BaseService.TERM, term);
+                BaseService.Create(Controller.TERM, term);
             }
         }
     }

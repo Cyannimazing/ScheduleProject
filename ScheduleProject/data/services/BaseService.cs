@@ -1,4 +1,5 @@
 ﻿using ScheduleProject.data.controller;
+using ScheduleProject.data.controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,6 @@ namespace ScheduleProject.data.service
 {
     internal class BaseService
     {
-        public readonly static int PROGRAM = 0;
-        public readonly static int SUBJECT = 1;
-        public readonly static int TERM = 2;
-        public readonly static int CLASS_GROUP = 3;
-        public readonly static int TIME_SLOT = 4;
-        public readonly static int SCHOOL_YEAR_TERM = 5;
-        public readonly static int ROOM = 6;
-        public readonly static int PROGRAM_SUBJECT = 7;
-        public readonly static int LECTURER_SUBJECT = 8;
-        public readonly static int LECTURER_SCHEDULE = 9;
-        public readonly static int LECTURER = 10;
-
         private static IController controllerInstance = null;
 
 
@@ -35,7 +24,7 @@ namespace ScheduleProject.data.service
          */
         public static int Create(int controller, models.Model model)
         {
-            controllerInstance = GetDefaultInstance(controller);
+            controllerInstance = Controller.GetControllerInstance(controller);
             if(controllerInstance == null)
             {
                 return -2;
@@ -52,7 +41,7 @@ namespace ScheduleProject.data.service
          */
         public static List<models.Model> GetAll(int controller)
         {
-            controllerInstance = GetDefaultInstance(controller);
+            controllerInstance = Controller.GetControllerInstance(controller);
             if(controllerInstance == null)
             {
                 return null;
@@ -61,24 +50,31 @@ namespace ScheduleProject.data.service
             return controllerInstance.GetAll();
         }
 
-        //Getter Instance Controller 
-        private static IController GetDefaultInstance(int controller)
+        /*Parameter:
+         * controller = instance ex: BaseController.PROGRAM
+         * id = id of the table
+         * 
+         * Return:
+         * List<Model> = model can have different instance
+         * Subjects are stored on Subjects not Subject 
+         * model:
+         * LecturerSubjects
+         * ProgramSubject
+         * 
+         * null = Invalid controller arguement
+         */
+        public static models.Model GetSubjectsById(int junctionController, int id)
         {
-            switch (controller)
-            {
-                case 0: return new ProgramController();
-                case 1: return new SubjectController();
-                case 2: return new TermController();
-                case 3: return new ClassController();
-                case 4: return new TimeSlotController();
-                case 5: return new SchoolYearTermController();
-                case 6: return new RoomController();
-                case 7: return new ProgramSubjectController();
-                case 8: return new LecturerSubjectController();
-                case 9: return new LecturerScheduleController();
-                case 10: return new LecturerController();
-                default: return null;
-            }
+            
+            return Controller.GetJunctionControllerInstance(junctionController).GetSubjectsById(id);
+            throw new NullReferenceException();
         }
+
+
+
+
+
+
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ScheduleProject.data.controllers;
 using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 using ScheduleProject.InputForm;
@@ -74,7 +75,7 @@ namespace ScheduleProject
 
         public void LoadAllTerms()
         {
-            var termsList = BaseService.GetAll(BaseService.TERM);
+            var termsList = BaseService.GetAll(Controller.TERM);
             dataGridViewTerms.Rows.Clear();
 
             foreach (Term term in termsList)

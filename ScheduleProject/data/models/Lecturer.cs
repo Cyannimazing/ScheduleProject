@@ -1,4 +1,5 @@
-﻿using ScheduleProject.data.service;
+﻿using ScheduleProject.data.controllers;
+using ScheduleProject.data.service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,13 +25,13 @@ namespace ScheduleProject.data.models
 
         public static void LecturerSeeder()
         {
-            BaseService.Create(BaseService.LECTURER, new Lecturer
+            BaseService.Create(Controller.LECTURER, new Lecturer
             {
                 Title = "Prof.",
                 FName = "Juan",
                 LName = "Dela Cruz"
             });
-            BaseService.Create(BaseService.LECTURER, new Lecturer
+            BaseService.Create(Controller.LECTURER, new Lecturer
             {
                 Title = "Doc.",
                 FName = "John",

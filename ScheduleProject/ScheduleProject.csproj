@@ -89,7 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="data\controllers\ClassController.cs" />
+    <Compile Include="data\controllers\Controller.cs" />
     <Compile Include="data\controllers\IController.cs" />
+    <Compile Include="data\controllers\IFetchSubjects.cs" />
     <Compile Include="data\controllers\LecturerController.cs" />
     <Compile Include="data\controllers\LecturerScheduleController.cs" />
     <Compile Include="data\controllers\LecturerSubjectController.cs" />

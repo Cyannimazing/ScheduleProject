@@ -1,4 +1,5 @@
-﻿using ScheduleProject.data.models;
+﻿using ScheduleProject.data.controllers;
+using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 using ScheduleProject.InputForm;
 using System;
@@ -37,7 +38,7 @@ namespace ScheduleProject
 
         private void LoadSampleData()
         {
-            var programsList = BaseService.GetAll(BaseService.SUBJECT);
+            var programsList = BaseService.GetAll(Controller.SUBJECT);
             dataGridViewSubjects.Rows.Clear();
 
             foreach (Subject subject in programsList)

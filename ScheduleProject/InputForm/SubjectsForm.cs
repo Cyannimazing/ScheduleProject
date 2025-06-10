@@ -1,4 +1,5 @@
-﻿using ScheduleProject.data.models;
+﻿using ScheduleProject.data.controllers;
+using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace ScheduleProject.InputForm
 
         public void LoadTerm()
         {
-            var termList = BaseService.GetAll(BaseService.TERM);
+            var termList = BaseService.GetAll(Controller.TERM);
             var terms = new List<Term>();
             foreach (Term term in termList)
             {
@@ -40,7 +41,7 @@ namespace ScheduleProject.InputForm
 
             try
             {
-                int result = BaseService.Create(BaseService.SUBJECT, subject);
+                int result = BaseService.Create(Controller.SUBJECT, subject);
                 if (result == 1)
                 {
                     MessageBox.Show($"Subject added successfully! {result} row(s) inserted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

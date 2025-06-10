@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ScheduleProject.data.controllers;
 using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
@@ -27,7 +28,7 @@ namespace ScheduleProject.InputForm
 
             try
             {
-                int result = BaseService.Create(BaseService.TERM, term);
+                int result = BaseService.Create(Controller.TERM, term);
                 if (result == 1)
                 {
                     MessageBox.Show($"Term added successfully! {result} row(s) inserted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
