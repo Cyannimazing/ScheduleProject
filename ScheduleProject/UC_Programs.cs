@@ -31,7 +31,7 @@ namespace ScheduleProject
             dataGridViewPrograms.DefaultCellStyle.BackColor = lightColor;
             dataGridViewPrograms.DefaultCellStyle.ForeColor = primaryColor;
             dataGridViewPrograms.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-            dataGridViewPrograms.ColumnHeadersDefaultCellStyle.BackColor = secondaryColor;
+            dataGridViewPrograms.ColumnHeadersDefaultCellStyle.BackColor = primaryColor;
             dataGridViewPrograms.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGridViewPrograms.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             dataGridViewPrograms.EnableHeadersVisualStyles = false;
@@ -45,7 +45,7 @@ namespace ScheduleProject
 
             foreach (Program program in programsList)
             {
-                dataGridViewPrograms.Rows.Add(program.Id, program.Code, program.Name, program.CreatedAt, program.UpdatedAt);
+                dataGridViewPrograms.Rows.Add(program.Id, program.Code, program.Name);
             }
         }
 
@@ -56,40 +56,11 @@ namespace ScheduleProject
             LoadAllPrograms();
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            //var selected = dataGridViewPrograms.SelectedRows;
-            //foreach (DataGridViewRow item in selected)
-            //{
-            //    var value = item.Cells[1].Value;
-            //    MessageBox.Show(value.ToString());
-            //}
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            // Placeholder for Delete confirmation
-        }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             LoadAllPrograms();
         }
 
-        private void Button_MouseEnter(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.BackColor = hoverColor;
-            }
-        }
-
-        private void Button_MouseLeave(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.BackColor = accentColor;
-            }
-        }
     }
 }

@@ -29,12 +29,11 @@ namespace ScheduleProject
             dataGridViewClasses.DefaultCellStyle.BackColor = lightColor;
             dataGridViewClasses.DefaultCellStyle.ForeColor = primaryColor;
             dataGridViewClasses.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-            dataGridViewClasses.ColumnHeadersDefaultCellStyle.BackColor = secondaryColor;
+            dataGridViewClasses.ColumnHeadersDefaultCellStyle.BackColor = primaryColor;
             dataGridViewClasses.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGridViewClasses.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             dataGridViewClasses.EnableHeadersVisualStyles = false;
             dataGridViewClasses.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewClasses.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void LoadSampleData()
@@ -44,7 +43,7 @@ namespace ScheduleProject
 
             foreach (ClassGroup c in classes)
             {
-                dataGridViewClasses.Rows.Add(c.Id, c.Name, c.ProgCode, c.CreatedAt, c.UpdatedAt);
+                dataGridViewClasses.Rows.Add(c.Id, c.Name, c.ProgCode);
                 dataGridViewClasses.ClearSelection();
             }
         }
@@ -56,36 +55,10 @@ namespace ScheduleProject
             LoadSampleData(); 
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Edit class functionality not implemented.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Delete class functionality not implemented.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             dataGridViewClasses.Rows.Clear();
             LoadSampleData();
-        }
-
-        private void Button_MouseEnter(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.BackColor = hoverColor;
-            }
-        }
-
-        private void Button_MouseLeave(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.BackColor = accentColor;
-            }
         }
     }
 }

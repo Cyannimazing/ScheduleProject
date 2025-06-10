@@ -29,7 +29,7 @@ namespace ScheduleProject
             dataGridViewLecturers.DefaultCellStyle.BackColor = lightColor;
             dataGridViewLecturers.DefaultCellStyle.ForeColor = primaryColor;
             dataGridViewLecturers.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-            dataGridViewLecturers.ColumnHeadersDefaultCellStyle.BackColor = secondaryColor;
+            dataGridViewLecturers.ColumnHeadersDefaultCellStyle.BackColor = primaryColor;
             dataGridViewLecturers.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGridViewLecturers.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             dataGridViewLecturers.EnableHeadersVisualStyles = false;
@@ -43,7 +43,7 @@ namespace ScheduleProject
 
             foreach (Lecturer lecturer in lecturerList)
             {
-                dataGridViewLecturers.Rows.Add(lecturer.Id, lecturer.Title, lecturer.FName, lecturer.LName, lecturer.CreatedAt, lecturer.UpdatedAt);
+                dataGridViewLecturers.Rows.Add(lecturer.Id, lecturer.Title, lecturer.FName, lecturer.LName);
             }
         }
 
@@ -54,36 +54,11 @@ namespace ScheduleProject
             LoadAllLecturers();
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Edit lecturer functionality not implemented.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Delete lecturer functionality not implemented.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             dataGridViewLecturers.Rows.Clear();
             LoadAllLecturers();
-        }
-
-        private void Button_MouseEnter(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.BackColor = hoverColor;
-            }
-        }
-
-        private void Button_MouseLeave(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.BackColor = accentColor;
-            }
         }
     }
 }
