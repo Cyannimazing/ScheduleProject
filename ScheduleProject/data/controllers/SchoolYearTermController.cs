@@ -46,7 +46,9 @@ namespace ScheduleProject.data.controller
                     {
                         Id = Convert.ToInt32(reader[SchoolYearTerm.COL_ID]),
                         TermId = Convert.ToInt32(reader[SchoolYearTerm.COL_ID]),
-                        Term = new Term { Name = reader[Term.COL_NAME].ToString() },
+                        Term = new Term {
+                            Id = Convert.ToInt32(reader[SchoolYearTerm.COL_ID]),
+                            Name = reader[Term.COL_NAME].ToString() },
                         SchoolYear = reader[SchoolYearTerm.COL_SCHOOL_YEAR].ToString(),
                         StartDate = reader[SchoolYearTerm.COL_START_DATE].ToString(),
                         EndDate = reader[SchoolYearTerm.COL_END_DATE].ToString(),
