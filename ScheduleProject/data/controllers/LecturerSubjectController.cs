@@ -19,11 +19,12 @@ namespace ScheduleProject.data.controller
             var m = model as models.LecturerSubject;
 
             var query = db.CreateCommand();
-            query.CommandText = @"INSERT INTO Lecturer_Subjects(lecturer_id, subj_code)
-                              VALUES (@lecturer_id, @subj_code);";
+            query.CommandText = @"INSERT INTO Lecturer_Subjects(lecturer_id, subj_code, sy_term_id)
+                              VALUES (@lecturer_id, @subj_code, @sy_term_id);";
 
             query.Parameters.AddWithValue("@lecturer_id", m.LecturerId);
             query.Parameters.AddWithValue("@subj_code", m.SubjCode);
+            query.Parameters.AddWithValue("@sy_term_id", m.SchoolYearTermId);
 
             try { return query.ExecuteNonQuery(); } catch { return -1; } finally { db.Close(); }
         }
@@ -98,7 +99,6 @@ namespace ScheduleProject.data.controller
                         Name = reader[Subject.COL_NAME].ToString(),
                         Unit = Convert.ToInt16(reader[Subject.COL_UNIT]),
                         IsGenEd = Convert.ToBoolean(reader[Subject.COL_IS_GEN_ED]),
-                        TermId = Convert.ToInt32(reader[Subject.COL_TERM_ID])
                     });
 
                     while (reader.Read())
@@ -109,7 +109,6 @@ namespace ScheduleProject.data.controller
                             Name = reader[Subject.COL_NAME].ToString(),
                             Unit = Convert.ToInt16(reader[Subject.COL_UNIT]),
                             IsGenEd = Convert.ToBoolean(reader[Subject.COL_IS_GEN_ED]),
-                            TermId = Convert.ToInt32(reader[Subject.COL_TERM_ID])
                         });
                     }
 

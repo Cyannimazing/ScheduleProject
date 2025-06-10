@@ -19,11 +19,13 @@ namespace ScheduleProject.data.controller
             var m = model as models.ProgramSubject;
 
             var query = db.CreateCommand();
-            query.CommandText = @"INSERT INTO Program_Subjects(prog_code, subj_code)
-                              VALUES (@prog_code, @subj_code);";
+            query.CommandText = @"INSERT INTO Program_Subjects(prog_code, subj_code, year_level, term_id)
+                              VALUES (@prog_code, @subj_code, @year_level, @term_id);";
 
             query.Parameters.AddWithValue("@prog_code", m.ProgCode);
             query.Parameters.AddWithValue("@subj_code", m.SubjCode);
+            query.Parameters.AddWithValue("@year_level", m.YearLevel);
+            query.Parameters.AddWithValue("@term_id", m.TermId);
 
             try { return query.ExecuteNonQuery(); } catch { return -1; } finally { db.Close(); }
         }
@@ -77,6 +79,7 @@ namespace ScheduleProject.data.controller
             {
                 if(reader.Read())
                 {
+                    
                     program_subjects.Program = new Program
                     {
                         Id = Convert.ToInt32(reader[Program.COL_ID]),
@@ -91,7 +94,6 @@ namespace ScheduleProject.data.controller
                         Name = reader.GetString(11),
                         Unit = reader.GetInt16(12),
                         IsGenEd = reader.GetBoolean(13),
-                        TermId = reader.GetInt32(14)
                     });
 
                     while (reader.Read())
@@ -103,7 +105,6 @@ namespace ScheduleProject.data.controller
                             Name = reader.GetString(11),
                             Unit = reader.GetInt16(12),
                             IsGenEd = reader.GetBoolean(13),
-                            TermId = reader.GetInt32(14)
                         });
                     }
 
