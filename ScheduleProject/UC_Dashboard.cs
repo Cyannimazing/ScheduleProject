@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic; // Changed from ArrayList to List
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,11 +22,9 @@ namespace ScheduleProject
         private TableLayoutPanel scheduleTable;
         private Panel[] scheduleCells;
         private bool isGridInitialized;
-        private ArrayList currentEntries;
+        private List<ScheduleEntry> currentEntries = new List<ScheduleEntry>(); // Initialized List<ScheduleEntry>
         private string[] timeSlots = { "08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "1:00 - 2:00", "2:00 - 3:00", "3:00 - 4:00", "4:00 - 5:00" };
         private string[] dayNames = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
-
-
 
         public UC_Dashboard()
         {
@@ -59,9 +57,7 @@ namespace ScheduleProject
             cmbLecturer.SelectedIndex = 0;
             cmbRoom.SelectedIndex = 0;
             isGridInitialized = false;
-
         }
-
 
         private void UC_Dashboard_Load(object sender, EventArgs e)
         {
@@ -145,6 +141,11 @@ namespace ScheduleProject
 
         private async void UpdateScheduleGridAsync()
         {
+            if (currentEntries == null)
+            {
+                return; // Safety check
+            }
+
             scheduleGridPanel.Visible = false;
 
             string selectedLecturer = cmbLecturer.SelectedItem?.ToString();
@@ -155,7 +156,7 @@ namespace ScheduleProject
             {
                 if (scheduleTable == null) return;
 
-                var cellUpdates = new ArrayList();
+                var cellUpdates = new List<Tuple<int, ScheduleEntry>>();
                 foreach (ScheduleEntry entry in currentEntries)
                 {
                     bool matchLecturer = entry.Lecturer == selectedLecturer;
@@ -188,9 +189,8 @@ namespace ScheduleProject
 
                     foreach (var update in cellUpdates)
                     {
-                        var tuple = (Tuple<int, ScheduleEntry>)update;
-                        int index = tuple.Item1;
-                        ScheduleEntry entry = tuple.Item2;
+                        int index = update.Item1;
+                        ScheduleEntry entry = update.Item2;
                         AddScheduleEntry(scheduleCells[index], entry);
                     }
 
@@ -255,10 +255,7 @@ namespace ScheduleProject
                 new ScheduleEntry("Thursday", "08:00 - 09:00", "Literature", "GFP (B)", "Dr. Ahmed Khalid", "Room 101", 0)
             };
 
-            foreach (ScheduleEntry entry in sharedData)
-            {
-                currentEntries.Add(entry);
-            }
+            currentEntries.AddRange(sharedData);
         }
 
         private void generate_report_Click(object sender, EventArgs e)
@@ -304,10 +301,9 @@ namespace ScheduleProject
                                     y += 40;
 
                                     string lecturerName = $"Lecturer Name: {cmbLecturer.SelectedItem ?? "Unknown"}";
-                                    // Count the number of teaching loads for the selected lecturer
-                                    int teachingLoadCount = currentEntries.Cast<ScheduleEntry>().Count(entry => entry.Lecturer == cmbLecturer.SelectedItem?.ToString());
+                                    int teachingLoadCount = currentEntries.Count(entry => entry.Lecturer == cmbLecturer.SelectedItem?.ToString());
                                     string teachingLoad = $"No. of Teaching Load: {teachingLoadCount}";
-                                    string subjectsTaught = "Subjects Taught: IT, Soft Skills"; // This could also be dynamically generated if needed
+                                    string subjectsTaught = "Subjects Taught: IT, Soft Skills"; // Could be dynamically generated
 
                                     gfx.DrawString(lecturerName, fontHeader, PdfSharp.Drawing.XBrushes.Black, margin, y);
                                     gfx.DrawString(teachingLoad, fontHeader, PdfSharp.Drawing.XBrushes.Black, page.Width - margin - 200, y);
