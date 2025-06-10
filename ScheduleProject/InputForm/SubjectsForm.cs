@@ -37,7 +37,7 @@ namespace ScheduleProject.InputForm
         private void btnAdd_Click(object sender, EventArgs e)
         {
             var term = (Term) cb_Term.SelectedItem;
-            var subject = new Subject { Code = tb_Code.Text, Name = tb_Name.Text, Unit = Convert.ToInt16(tb_Unit.Text), TermId = (int)term.Id, IsGenEd = rb_Yes.Checked };
+            var subject = new Subject { Code = tb_Code.Text, Name = tb_Name.Text, Unit = Convert.ToInt16(tb_Unit.Text), IsGenEd = rb_Yes.Checked };
 
             try
             {
