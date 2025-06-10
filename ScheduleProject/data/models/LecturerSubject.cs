@@ -11,6 +11,7 @@ namespace ScheduleProject.data.models
         public static string TBL_NAME = "Lecturer_Subjects";
         public static string COL_LECTURER_ID = "lecturer_id";
         public static string COL_SUBJ_CODE = "subj_code";
+        public static string COL_SY_TERM_ID = "sy_term_id";
 
         public int LecturerId { get; set; }
         public Lecturer Lecturer { get; set; }
@@ -18,6 +19,9 @@ namespace ScheduleProject.data.models
         public string SubjCode { get; set; }
         public List<Subject> Subjects { get; set; }
         public Subject Subject { get; set; }
+
+        public int SchoolYearTermId { get; set; }
+        public SchoolYearTerm SchoolYearTerm { get; set; }
 
         public static LecturerSubject LecturerSubjectSeeder()
         {

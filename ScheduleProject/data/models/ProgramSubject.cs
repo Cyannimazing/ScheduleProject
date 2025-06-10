@@ -13,6 +13,7 @@ namespace ScheduleProject.data.models
         public static string COL_SUBJ_CODE = "subj_code";
         public static string COL_PROG_NAME = "prog_name";
         public static string COL_SUBJ_NAME = "subj_name";
+        public static string COL_YEAR_LEVEL = "year_level";
 
         public string ProgCode { get; set; }
         public Program Program { get; set; }
@@ -20,6 +21,8 @@ namespace ScheduleProject.data.models
         public string SubjCode { get; set; }
         public Subject Subject { get; set; }
         public List<Subject> Subjects { get; set; }
+
+        public string YearLevel {  get; set; }
 
         public static ProgramSubject ProgramSubjectSeeder()
         {
