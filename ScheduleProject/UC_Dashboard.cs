@@ -1,26 +1,30 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
+using System.Linq;
 
 namespace ScheduleProject
 {
     public partial class UC_Dashboard : UserControl
     {
         private Color[] schedulePalette = new Color[] {
-            ColorTranslator.FromHtml("#A2C8EC"),
-            ColorTranslator.FromHtml("#F9C19F"),
-            ColorTranslator.FromHtml("#C9E6A7"),
-            ColorTranslator.FromHtml("#E6B0E4"),
-            ColorTranslator.FromHtml("#FADF8A")
+            ColorTranslator.FromHtml("#A2C8EC"), // Light Blue
+            ColorTranslator.FromHtml("#F9C19F"), // Light Peach
+            ColorTranslator.FromHtml("#C9E6A7"), // Light Green
+            ColorTranslator.FromHtml("#E6B0E4"), // Light Purple
+            ColorTranslator.FromHtml("#FADF8A")  // Light Yellow
         };
 
-        private DateTime currentWeekStart;
         private TableLayoutPanel scheduleTable;
-        private Panel[] scheduleCells = new Panel[30]; // 5 days x 6 slots
+        private Panel[] scheduleCells;
         private bool isGridInitialized;
-        private List<ScheduleEntry> currentEntries;
+        private ArrayList currentEntries;
+        private string[] timeSlots = { "08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "1:00 - 2:00", "2:00 - 3:00", "3:00 - 4:00", "4:00 - 5:00" };
+        private string[] dayNames = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
 
         public UC_Dashboard()
         {
@@ -28,44 +32,40 @@ namespace ScheduleProject
             DoubleBuffered = true;
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
 
+            // Populate combobox items
+            cmbClass.Items.AddRange(new object[] {
+                "All",
+                "GFP (C)",
+                "GFP (B)",
+                "GFP (A)"
+            });
+            cmbLecturer.Items.AddRange(new object[] {
+                "Ms. Hawa Almujaini",
+                "Dr. Ahmed Khalid",
+                "Prof. Sara Ismail"
+            });
+            cmbRoom.Items.AddRange(new object[] {
+                "All",
+                "Room 101",
+                "Room 102",
+                "Room 103",
+                "Lab 201",
+                "Lab 202"
+            });
+
             cmbClass.SelectedIndex = 0;
             cmbLecturer.SelectedIndex = 0;
             cmbRoom.SelectedIndex = 0;
 
-            btnPrevWeek.Click += BtnPrevWeek_Click;
-            btnNextWeek.Click += BtnNextWeek_Click;
-            btnApplyFilter.Click += BtnApplyFilter_Click;
+            // Add event handlers for immediate filtering
+            cmbClass.SelectedIndexChanged += (s, e) => UpdateScheduleGridAsync();
+            cmbLecturer.SelectedIndexChanged += (s, e) => UpdateScheduleGridAsync();
+            cmbRoom.SelectedIndexChanged += (s, e) => UpdateScheduleGridAsync();
+
+            generate_report.Click += generate_report_Click;
 
             isGridInitialized = false;
-        }
-
-        private DateTime GetCurrentWeekMonday()
-        {
-            DateTime today = DateTime.Today;
-            return today.AddDays(-((int)today.DayOfWeek - (int)DayOfWeek.Monday + 7) % 7);
-        }
-
-        private void SetCurrentWeek(DateTime weekStartDate)
-        {
-            currentWeekStart = weekStartDate.Date;
-            DateTime weekEndDate = currentWeekStart.AddDays(4);
-            lblCurrentWeek.Text = $"{currentWeekStart:MMMM dd} - {weekEndDate:MMMM dd, yyyy}";
-            if (isGridInitialized) UpdateScheduleGridAsync();
-        }
-
-        private void BtnPrevWeek_Click(object sender, EventArgs e)
-        {
-            SetCurrentWeek(currentWeekStart.AddDays(-7));
-        }
-
-        private void BtnNextWeek_Click(object sender, EventArgs e)
-        {
-            SetCurrentWeek(currentWeekStart.AddDays(7));
-        }
-
-        private void BtnApplyFilter_Click(object sender, EventArgs e)
-        {
-            UpdateScheduleGridAsync();
+            currentEntries = new ArrayList();
         }
 
         private void UC_Dashboard_Load(object sender, EventArgs e)
@@ -74,7 +74,8 @@ namespace ScheduleProject
             {
                 CreateScheduleGrid();
                 isGridInitialized = true;
-                SetCurrentWeek(GetCurrentWeekMonday());
+                LoadSampleData();
+                UpdateScheduleGridAsync(); // Initial load
             }
         }
 
@@ -86,9 +87,10 @@ namespace ScheduleProject
             {
                 Dock = DockStyle.Fill,
                 CellBorderStyle = TableLayoutPanelCellBorderStyle.Single,
-                RowCount = 7,
+                RowCount = timeSlots.Length + 1, // Number of slots + header
                 ColumnCount = 6,
-                AutoSize = false
+                AutoSize = false,
+                BackColor = Color.White
             };
             scheduleGridPanel.Controls.Add(scheduleTable);
 
@@ -98,28 +100,28 @@ namespace ScheduleProject
                 scheduleTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 6));
             }
 
-            // Even row heights
+            // Row heights
             scheduleTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 40f)); // Header row
-            for (int i = 1; i < 7; i++)
+            for (int i = 1; i <= timeSlots.Length; i++)
             {
-                scheduleTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / 6));
+                scheduleTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / timeSlots.Length));
             }
 
-            // Pre-allocate headers and time slots
-            string[] dayNames = { "Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
-            for (int i = 0; i < dayNames.Length; i++)
+            // Headers and time slots
+            string[] headers = { "Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
+            for (int i = 0; i < headers.Length; i++)
             {
                 Label label = new Label
                 {
-                    Text = dayNames[i],
+                    Text = headers[i],
                     Dock = DockStyle.Fill,
                     TextAlign = ContentAlignment.MiddleCenter,
-                    BackColor = Color.LightGray
+                    BackColor = Color.LightGray,
+                    Font = new Font("Arial", 10, FontStyle.Bold)
                 };
                 scheduleTable.Controls.Add(label, i, 0);
             }
 
-            string[] timeSlots = { "07:30 - 09:00", "09:00 - 10:30", "10:30 - 12:00", "13:00 - 14:30", "14:30 - 16:00", "16:00 - 17:30" };
             for (int row = 0; row < timeSlots.Length; row++)
             {
                 Label label = new Label
@@ -127,21 +129,24 @@ namespace ScheduleProject
                     Text = timeSlots[row],
                     Dock = DockStyle.Fill,
                     TextAlign = ContentAlignment.MiddleCenter,
-                    BackColor = Color.WhiteSmoke
+                    BackColor = Color.WhiteSmoke,
+                    Font = new Font("Arial", 9)
                 };
                 scheduleTable.Controls.Add(label, 0, row + 1);
             }
 
-            // Pre-allocate cells
+            // Pre-allocate cells dynamically
+            scheduleCells = new Panel[timeSlots.Length * 5];
             int index = 0;
-            for (int row = 1; row < 7; row++)
+            for (int row = 1; row <= timeSlots.Length; row++)
             {
                 for (int col = 1; col < 6; col++)
                 {
                     Panel cell = new Panel
                     {
                         Dock = DockStyle.Fill,
-                        BackColor = Color.White
+                        BackColor = Color.White,
+                        BorderStyle = BorderStyle.FixedSingle
                     };
                     cell.Click += Cell_Click;
                     scheduleTable.Controls.Add(cell, col, row);
@@ -152,62 +157,40 @@ namespace ScheduleProject
 
         private async void UpdateScheduleGridAsync()
         {
-            // Show loading screen
-            loadingPanel.Visible = true;
             scheduleGridPanel.Visible = false;
 
-            // Capture filter values on the UI thread
-            string selectedClass = cmbClass.SelectedItem?.ToString() ?? "All Classes";
-            string selectedLecturer = cmbLecturer.SelectedItem?.ToString() ?? "All Lecturers";
-            string selectedRoom = cmbRoom.SelectedItem?.ToString() ?? "All Rooms";
+            string selectedLecturer = cmbLecturer.SelectedItem?.ToString();
+            string selectedClass = cmbClass.SelectedItem?.ToString();
+            string selectedRoom = cmbRoom.SelectedItem?.ToString();
 
-            // Offload rendering to background thread
             await Task.Run(() =>
             {
                 if (scheduleTable == null) return;
 
-                // Update day headers
-                var headerUpdates = new string[5];
-                for (int i = 1; i < 6; i++)
+                var cellUpdates = new ArrayList();
+                foreach (ScheduleEntry entry in currentEntries)
                 {
-                    DateTime date = currentWeekStart.AddDays(i - 1);
-                    headerUpdates[i - 1] = $"{new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" }[i - 1]}\n{date:MMM dd}";
-                }
+                    bool matchLecturer = entry.Lecturer == selectedLecturer;
+                    bool matchClass = selectedClass == "All" || entry.ClassName == selectedClass;
+                    bool matchRoom = selectedRoom == "All" || entry.Room == selectedRoom;
 
-                // Fetch and filter entries
-                int weekNumber = (int)Math.Ceiling(currentWeekStart.DayOfYear / 7.0);
-                currentEntries = GetScheduleEntriesForWeek(weekNumber);
-
-                var cellUpdates = new (int Index, ScheduleEntry Entry)[currentEntries.Count];
-                int updateCount = 0;
-                for (int i = 0; i < currentEntries.Count; i++)
-                {
-                    var entry = currentEntries[i];
-                    if ((selectedClass == "All Classes" || entry.ClassName == selectedClass) &&
-                        (selectedLecturer == "All Lecturers" || entry.Lecturer == selectedLecturer) &&
-                        (selectedRoom == "All Rooms" || entry.Room == selectedRoom))
+                    if (matchLecturer && matchClass && matchRoom)
                     {
-                        int index = (entry.Row - 1) * 5 + (entry.Col - 1);
-                        if (index >= 0 && index < scheduleCells.Length)
+                        int dayIndex = Array.IndexOf(dayNames, entry.Day);
+                        int timeSlotIndex = Array.IndexOf(timeSlots, entry.TimeSlot);
+                        if (dayIndex >= 0 && timeSlotIndex >= 0)
                         {
-                            cellUpdates[updateCount++] = (index, entry);
+                            int index = timeSlotIndex * 5 + dayIndex;
+                            if (index >= 0 && index < scheduleCells.Length)
+                            {
+                                cellUpdates.Add(Tuple.Create(index, entry));
+                            }
                         }
                     }
                 }
 
-                // Update UI on the main thread
                 BeginInvoke((Action)(() =>
                 {
-                    // Apply header updates
-                    for (int i = 0; i < headerUpdates.Length; i++)
-                    {
-                        if (scheduleTable.GetControlFromPosition(i + 1, 0) is Label label)
-                        {
-                            label.Text = headerUpdates[i];
-                        }
-                    }
-
-                    // Clear all cells
                     for (int i = 0; i < scheduleCells.Length; i++)
                     {
                         scheduleCells[i].Controls.Clear();
@@ -215,16 +198,16 @@ namespace ScheduleProject
                         scheduleCells[i].BackColor = Color.White;
                     }
 
-                    // Apply cell updates
-                    for (int i = 0; i < updateCount; i++)
+                    foreach (var update in cellUpdates)
                     {
-                        var (index, entry) = cellUpdates[i];
+                        var tuple = (Tuple<int, ScheduleEntry>)update;
+                        int index = tuple.Item1;
+                        ScheduleEntry entry = tuple.Item2;
                         AddScheduleEntry(scheduleCells[index], entry);
                     }
 
-                    // Hide loading screen
-                    loadingPanel.Visible = false;
                     scheduleGridPanel.Visible = true;
+                    scheduleTable.Refresh();
                 }));
             });
         }
@@ -245,10 +228,10 @@ namespace ScheduleProject
             layout.RowStyles.Add(new RowStyle(SizeType.Percent, 25f));
             layout.RowStyles.Add(new RowStyle(SizeType.Percent, 25f));
 
-            layout.Controls.Add(new Label { Text = entry.Subject, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter }, 0, 0);
-            layout.Controls.Add(new Label { Text = entry.ClassName, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter }, 0, 1);
-            layout.Controls.Add(new Label { Text = entry.Lecturer, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter }, 0, 2);
-            layout.Controls.Add(new Label { Text = entry.Room, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter }, 0, 3);
+            layout.Controls.Add(new Label { Text = entry.Subject, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Arial", 8) }, 0, 0);
+            layout.Controls.Add(new Label { Text = entry.ClassName, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Arial", 8) }, 0, 1);
+            layout.Controls.Add(new Label { Text = entry.Lecturer, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Arial", 8) }, 0, 2);
+            layout.Controls.Add(new Label { Text = entry.Room, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Arial", 8) }, 0, 3);
 
             cell.Controls.Add(layout);
             cell.Tag = entry;
@@ -258,52 +241,146 @@ namespace ScheduleProject
         {
             if (sender is Panel cell && cell.Tag is ScheduleEntry entry)
             {
-                string details = $"Subject: {entry.Subject}\nClass: {entry.ClassName}\nLecturer: {entry.Lecturer}\nRoom: {entry.Room}";
+                string details = $"Subject: {entry.Subject}\nClass: {entry.ClassName}\nLecturer: {entry.Lecturer}\nRoom: {entry.Room}\nDay: {entry.Day}\nTime: {entry.TimeSlot}";
                 MessageBox.Show(details, "Schedule Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        private List<ScheduleEntry> GetScheduleEntriesForWeek(int weekNumber)
+        private void LoadSampleData()
         {
-            var entries = new List<ScheduleEntry>(14);
-            if (weekNumber % 2 == 0)
+            currentEntries.Clear();
+            ScheduleEntry[] sharedData = new ScheduleEntry[]
             {
-                entries.Add(new ScheduleEntry(1, 1, "ITE101", "BSIT-1A", "Prof. John Smith", "Room 101", 0));
-                entries.Add(new ScheduleEntry(2, 1, "ITE102", "BSIT-1A", "Prof. John Smith", "Lab 201", 1));
-                entries.Add(new ScheduleEntry(3, 4, "GE101", "BSIT-1A", "Prof. Michael Brown", "Room 204", 2));
-                entries.Add(new ScheduleEntry(1, 2, "ITE101", "BSIT-1B", "Prof. John Smith", "Room 101", 0));
-                entries.Add(new ScheduleEntry(1, 3, "ITE201", "BSIT-2A", "Dr. Maria Garcia", "Room 102", 3));
-                entries.Add(new ScheduleEntry(2, 2, "ITE102", "BSIT-1B", "Prof. John Smith", "Lab 201", 1));
-                entries.Add(new ScheduleEntry(4, 2, "GE101", "BSCS-1A", "Prof. Michael Brown", "Room 204", 2));
-            }
-            else
+                new ScheduleEntry("Sunday", "09:00 - 10:00", "ITI", "GFP (C)", "Ms. Hawa Almujaini", "Room 101", 4),
+                new ScheduleEntry("Sunday", "10:00 - 11:00", "ITI", "GFP (B)", "Dr. Ahmed Khalid", "Room 102", 2),
+                new ScheduleEntry("Sunday", "11:00 - 12:00", "ITI", "GFP (B)", "Prof. Sara Ismail", "Room 103", 2),
+                new ScheduleEntry("Monday", "08:00 - 09:00", "IT2 (CBT27)", "GFP (A)", "Ms. Hawa Almujaini", "Room 101", 1),
+                new ScheduleEntry("Monday", "10:00 - 11:00", "BTEA 102 Soft Skills", "GFP (B)", "Dr. Ahmed Khalid", "Lab 201", 3),
+                new ScheduleEntry("Monday", "11:00 - 12:00", "ITI", "GFP (C)", "Prof. Sara Ismail", "Room 102", 4),
+                new ScheduleEntry("Tuesday", "08:00 - 09:00", "ITI", "GFP (A)", "Ms. Hawa Almujaini", "Room 103", 0),
+                new ScheduleEntry("Tuesday", "09:00 - 10:00", "BTEA 102", "GFP (B)", "Dr. Ahmed Khalid", "Lab 202", 3),
+                new ScheduleEntry("Tuesday", "11:00 - 12:00", "ITI", "GFP (C)", "Prof. Sara Ismail", "Room 101", 4),
+                new ScheduleEntry("Wednesday", "08:00 - 09:00", "Advanced IT", "GFP (A)", "Ms. Hawa Almujaini", "Room 102", 0),
+                new ScheduleEntry("Thursday", "09:00 - 10:00", "Math 101", "GFP (B)", "Dr. Ahmed Khalid", "Room 103", 1),
+                new ScheduleEntry("Wednesday", "10:00 - 11:00", "English", "GFP (C)", "Prof. Sara Ismail", "Lab 201", 3),
+                new ScheduleEntry("Thursday", "11:00 - 12:00", "History", "GFP (A)", "Ms. Hawa Almujaini", "Lab 202", 4),
+                new ScheduleEntry("Thursday", "08:00 - 09:00", "Literature", "GFP (B)", "Dr. Ahmed Khalid", "Room 101", 0)
+            };
+
+            foreach (ScheduleEntry entry in sharedData)
             {
-                entries.Add(new ScheduleEntry(3, 1, "ITE103", "BSIT-1A", "Prof. Lisa Johnson", "Room 103", 4));
-                entries.Add(new ScheduleEntry(4, 1, "ITE204", "BSIT-2A", "Dr. Maria Garcia", "Lab 202", 3));
-                entries.Add(new ScheduleEntry(2, 3, "GE102", "BSIT-1A", "Prof. Robert Wilson", "Room 203", 1));
-                entries.Add(new ScheduleEntry(1, 4, "ITE103", "BSIT-1B", "Prof. Lisa Johnson", "Room 103", 4));
-                entries.Add(new ScheduleEntry(1, 5, "ITE203", "BSIT-2B", "Prof. David Lee", "Room 105", 2));
-                entries.Add(new ScheduleEntry(5, 2, "ITE104", "BSIT-1B", "Prof. Sarah Miller", "Lab 204", 0));
-                entries.Add(new ScheduleEntry(3, 3, "GE102", "BSCS-1A", "Prof. Robert Wilson", "Room 203", 1));
+                currentEntries.Add(entry);
             }
-            return entries;
+        }
+
+        private void generate_report_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "PDF files (*.pdf)|*.pdf";
+                sfd.FileName = "Schedule_Report.pdf";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        scheduleGridPanel.SuspendLayout();
+                        scheduleGridPanel.ResumeLayout(true);
+                        scheduleGridPanel.PerformLayout();
+
+                        Bitmap bmp = new Bitmap(scheduleGridPanel.Width, scheduleGridPanel.Height);
+                        scheduleGridPanel.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
+
+                        using (var memoryStream = new System.IO.MemoryStream())
+                        {
+                            bmp.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                            memoryStream.Position = 0;
+
+                            using (PdfSharp.Pdf.PdfDocument document = new PdfSharp.Pdf.PdfDocument())
+                            {
+                                PdfSharp.Pdf.PdfPage page = document.AddPage();
+                                page.Size = PdfSharp.PageSize.A4;
+                                page.Orientation = PdfSharp.PageOrientation.Portrait;
+
+                                using (PdfSharp.Drawing.XGraphics gfx = PdfSharp.Drawing.XGraphics.FromPdfPage(page))
+                                {
+                                    var fontTitle = new PdfSharp.Drawing.XFont("Arial", 16, PdfSharp.Drawing.XFontStyle.Bold);
+                                    var fontHeader = new PdfSharp.Drawing.XFont("Arial", 12, PdfSharp.Drawing.XFontStyle.Regular);
+
+                                    double margin = 40;
+                                    double y = margin;
+
+                                    gfx.DrawString("FOUNDATION PROGRAM", fontTitle, PdfSharp.Drawing.XBrushes.Black, new PdfSharp.Drawing.XPoint(page.Width / 2, y), PdfSharp.Drawing.XStringFormats.TopCenter);
+                                    y += 25;
+                                    gfx.DrawString("LECTURER'S LOAD", fontTitle, PdfSharp.Drawing.XBrushes.Black, new PdfSharp.Drawing.XPoint(page.Width / 2, y), PdfSharp.Drawing.XStringFormats.TopCenter);
+                                    y += 40;
+
+                                    string lecturerName = $"Lecturer Name: {cmbLecturer.SelectedItem ?? "Unknown"}";
+                                    // Count the number of teaching loads for the selected lecturer
+                                    int teachingLoadCount = currentEntries.Cast<ScheduleEntry>().Count(entry => entry.Lecturer == cmbLecturer.SelectedItem?.ToString());
+                                    string teachingLoad = $"No. of Teaching Load: {teachingLoadCount}";
+                                    string subjectsTaught = "Subjects Taught: IT, Soft Skills"; // This could also be dynamically generated if needed
+
+                                    gfx.DrawString(lecturerName, fontHeader, PdfSharp.Drawing.XBrushes.Black, margin, y);
+                                    gfx.DrawString(teachingLoad, fontHeader, PdfSharp.Drawing.XBrushes.Black, page.Width - margin - 200, y);
+                                    y += 20;
+                                    gfx.DrawString(subjectsTaught, fontHeader, PdfSharp.Drawing.XBrushes.Black, margin, y);
+                                    y += 30;
+
+                                    using (PdfSharp.Drawing.XImage img = PdfSharp.Drawing.XImage.FromStream(memoryStream))
+                                    {
+                                        double imgWidth = img.PixelWidth * 72 / img.HorizontalResolution;
+                                        double imgHeight = img.PixelHeight * 72 / img.VerticalResolution;
+
+                                        double scale = 1.0;
+                                        if (imgWidth > page.Width - 2 * margin)
+                                        {
+                                            scale = (page.Width - 2 * margin) / imgWidth;
+                                        }
+
+                                        double imgX = (page.Width - imgWidth * scale) / 2;
+                                        double imgY = y;
+
+                                        gfx.DrawImage(img, imgX, imgY, imgWidth * scale, imgHeight * scale);
+
+                                        y += imgHeight * scale;
+                                    }
+
+                                    y += 30;
+                                    gfx.DrawString("Signed by:", fontHeader, PdfSharp.Drawing.XBrushes.Black, margin, y);
+                                    gfx.DrawLine(PdfSharp.Drawing.XPens.Black, margin + 60, y + 5, margin + 250, y + 5);
+                                    gfx.DrawString("Lecturer", fontHeader, PdfSharp.Drawing.XBrushes.Black, margin + 60, y + 10);
+                                }
+
+                                document.Save(sfd.FileName);
+                            }
+                        }
+
+                        MessageBox.Show("PDF saved successfully!", "PDF Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error generating PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 
     public class ScheduleEntry
     {
-        public int Col { get; }
-        public int Row { get; }
+        public string Day { get; }
+        public string TimeSlot { get; }
         public string Subject { get; }
         public string ClassName { get; }
         public string Lecturer { get; }
         public string Room { get; }
         public int ColorIndex { get; }
 
-        public ScheduleEntry(int col, int row, string subject, string className, string lecturer, string room, int colorIndex)
+        public ScheduleEntry(string day, string timeSlot, string subject, string className, string lecturer, string room, int colorIndex)
         {
-            Col = col;
-            Row = row;
+            Day = day;
+            TimeSlot = timeSlot;
             Subject = subject;
             ClassName = className;
             Lecturer = lecturer;
