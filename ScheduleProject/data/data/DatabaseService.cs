@@ -44,17 +44,19 @@ namespace ScheduleProject.data.data
 
             var query = _connection.CreateCommand();
 
-            query.CommandText = @"" + ProgramsMigration.CreateTable()
-                +TermsMigration.CreateTable()
-                +ProgramSubjectsMigration.CreateTable()
-                +LecturersMigration.CreateTable()
-                +ClassesMigration.CreateTable()
-                +RoomsMigration.CreateTable()
-                +TimeSlotsMigration.CreateTable()
-                +SubjectsMigration.CreateTable()
-                +LecturerSubjectsMigration.CreateTable()
-                +SchoolYearTermsMigration.CreateTable()
-                +LecturerSchedulesMigration.CreateTable();
+            query.CommandText = @"" +
+                ProgramsMigration.CreateTable()
+                + TermsMigration.CreateTable()
+                + ProgramSubjectsMigration.CreateTable()
+                + LecturersMigration.CreateTable()
+                + ClassesMigration.CreateTable()
+                + RoomsMigration.CreateTable()
+                + TimeSlotsMigration.CreateTable()
+                + SubjectsMigration.CreateTable()
+                + LecturerSubjectsMigration.CreateTable()
+                + SchoolYearTermsMigration.CreateTable()
+                + LecturerSchedulesMigration.CreateTable()
+                ;
 
             query.ExecuteNonQuery();
             _connection.Close();
