@@ -1,14 +1,16 @@
-﻿using ScheduleProject.data.data;
+﻿using ScheduleProject.data.controllers;
+using ScheduleProject.data.data;
 using ScheduleProject.data.models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ScheduleProject.data.controller
 {
-    internal class ProgramSubjectController : IController
+    internal class ProgramSubjectController : IController, IFetchSubjects
     {
         public int Create(Model model)
         {
@@ -57,5 +59,60 @@ namespace ScheduleProject.data.controller
             return list;
         }
 
+        public Model GetSubjectsById(int id)
+        {
+            var db = DatabaseService.getConnection();
+            var query = DatabaseService.createQuery(
+                $@"SELECT * FROM Program_Subjects ps
+                    INNER JOIN Programs p 
+                    ON p.code = ps.prog_code
+                    INNER JOIN Subjects s 
+                    ON s.code = ps.subj_code
+                    WHERE p.id = '{id}'", db);
+
+            var program_subjects = new ProgramSubject();
+            program_subjects.Subjects = new List<Subject>();
+
+            using (var reader = query.ExecuteReader())
+            {
+                if(reader.Read())
+                {
+                    program_subjects.Program = new Program
+                    {
+                        Id = Convert.ToInt32(reader[Program.COL_ID]),
+                        Code = reader[ProgramSubject.COL_PROG_CODE].ToString(),
+                        Name = reader[Program.COL_NAME].ToString(),
+                    };
+
+                    program_subjects.Subjects.Add(new Subject
+                    {
+                        Id = reader.GetInt32(9),
+                        Code = reader.GetString(10),
+                        Name = reader.GetString(11),
+                        Unit = reader.GetInt16(12),
+                        IsGenEd = reader.GetBoolean(13),
+                        TermId = reader.GetInt32(14)
+                    });
+
+                    while (reader.Read())
+                    {
+                        program_subjects.Subjects.Add(new Subject
+                        {
+                            Id = reader.GetInt32(9),
+                            Code = reader.GetString(10),
+                            Name = reader.GetString(11),
+                            Unit = reader.GetInt16(12),
+                            IsGenEd = reader.GetBoolean(13),
+                            TermId = reader.GetInt32(14)
+                        });
+                    }
+
+                    db.Close();
+                    return program_subjects;
+                }
+            }
+            return null;
+            throw new NullReferenceException();
+        }
     }
 }

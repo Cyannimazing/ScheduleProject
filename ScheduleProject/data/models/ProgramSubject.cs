@@ -19,6 +19,7 @@ namespace ScheduleProject.data.models
 
         public string SubjCode { get; set; }
         public Subject Subject { get; set; }
+        public List<Subject> Subjects { get; set; }
 
         public static ProgramSubject ProgramSubjectSeeder()
         {

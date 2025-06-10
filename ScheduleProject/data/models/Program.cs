@@ -1,4 +1,5 @@
-﻿using ScheduleProject.data.service;
+﻿using ScheduleProject.data.controllers;
+using ScheduleProject.data.service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,12 @@ namespace ScheduleProject.data.models
 
         public static void ProgramSeeder()
         {
-            BaseService.Create(BaseService.PROGRAM, new Program
+            BaseService.Create(Controller.PROGRAM, new Program
             {
                 Code = "BSCS",
                 Name = "Computer Science"
             });
-            BaseService.Create(BaseService.PROGRAM, new Program
+            BaseService.Create(Controller.PROGRAM, new Program
             {
                 Code = "BSHM",
                 Name = "Hospitality Management"

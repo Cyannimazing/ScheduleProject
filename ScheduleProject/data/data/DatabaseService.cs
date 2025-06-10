@@ -59,5 +59,12 @@ namespace ScheduleProject.data.data
             query.ExecuteNonQuery();
             _connection.Close();
         }
+
+        public static SQLiteCommand createQuery(string sqlQuery, SQLiteConnection db)
+        {
+            var query = db.CreateCommand();
+            query.CommandText = sqlQuery;
+            return query;
+        }
     }
 }

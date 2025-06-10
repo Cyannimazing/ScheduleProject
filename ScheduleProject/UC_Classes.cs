@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ScheduleProject.data.controllers;
 using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 using ScheduleProject.InputForm;
@@ -38,7 +39,7 @@ namespace ScheduleProject
 
         private void LoadSampleData()
         {
-            var classes = BaseService.GetAll(BaseService.CLASS_GROUP);
+            var classes = BaseService.GetAll(Controller.CLASS_GROUP);
             dataGridViewClasses.Rows.Clear();
 
             foreach (ClassGroup c in classes)

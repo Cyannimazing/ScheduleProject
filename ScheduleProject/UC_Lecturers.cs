@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ScheduleProject.data.controllers;
 using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 using ScheduleProject.InputForm;
@@ -37,7 +38,7 @@ namespace ScheduleProject
 
         private void LoadAllLecturers()
         {
-            var lecturerList = BaseService.GetAll(BaseService.LECTURER);
+            var lecturerList = BaseService.GetAll(Controller.LECTURER);
             dataGridViewLecturers.Rows.Clear();
 
             foreach (Lecturer lecturer in lecturerList)
@@ -50,6 +51,7 @@ namespace ScheduleProject
         {
             LecturersForm lecturersForm = new LecturersForm();
             lecturersForm.ShowDialog();
+            LoadAllLecturers();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)

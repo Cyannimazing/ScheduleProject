@@ -1,4 +1,5 @@
-﻿using ScheduleProject.data.models;
+﻿using ScheduleProject.data.controllers;
+using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 using System;
 using System.Drawing;
@@ -37,7 +38,7 @@ namespace ScheduleProject
 
         private void LoadSampleData()
         {
-            var timeslots = BaseService.GetAll(BaseService.TIME_SLOT);
+            var timeslots = BaseService.GetAll(Controller.TIME_SLOT);
             dataGridViewTimeSlots.Rows.Clear();
 
             foreach (TimeSlot timeslot in timeslots)

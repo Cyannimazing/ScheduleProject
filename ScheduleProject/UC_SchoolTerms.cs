@@ -1,7 +1,10 @@
-﻿using System;
+﻿using ScheduleProject.data.controllers;
+using ScheduleProject.data.models;
+using ScheduleProject.data.service;
+using ScheduleProject.InputForm;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ScheduleProject.InputForm;
 
 namespace ScheduleProject
 {
@@ -35,14 +38,20 @@ namespace ScheduleProject
 
         private void LoadSampleData()
         {
-            dataGridViewSchoolTerms.Rows.Add(1, 1, DateTime.Now.Year, "2025-01-01", "2025-06-30", DateTime.Now, DateTime.Now);
-            dataGridViewSchoolTerms.Rows.Add(2, 2, DateTime.Now.Year, "2025-07-01", "2025-12-31", DateTime.Now, DateTime.Now);
+            var syTermList = BaseService.GetAll(Controller.SCHOOL_YEAR_TERM);
+            dataGridViewSchoolTerms.Rows.Clear();
+
+            foreach (SchoolYearTerm syTerm in syTermList)
+            {
+                dataGridViewSchoolTerms.Rows.Add(syTerm.Id, syTerm.Term.Name, syTerm.SchoolYear, syTerm.StartDate, syTerm.EndDate, syTerm.CreatedAt, syTerm.UpdatedAt);
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             SYTermsForm sYTermsForm = new SYTermsForm();
             sYTermsForm.ShowDialog();
+            LoadSampleData();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -57,7 +66,6 @@ namespace ScheduleProject
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            dataGridViewSchoolTerms.Rows.Clear();
             LoadSampleData();
         }
 

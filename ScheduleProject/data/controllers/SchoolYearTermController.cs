@@ -32,7 +32,9 @@ namespace ScheduleProject.data.controller
         {
             var db = DatabaseService.getConnection();
             var query = db.CreateCommand();
-            query.CommandText = $@"SELECT * FROM {SchoolYearTerm.TBL_NAME}";
+            query.CommandText = $@"SELECT * FROM School_Year_Terms syt
+                                   INNER JOIN Terms t
+                                   ON t.id = syt.term_id;";
 
             var list = new List<Model>();
 
@@ -44,6 +46,7 @@ namespace ScheduleProject.data.controller
                     {
                         Id = Convert.ToInt32(reader[SchoolYearTerm.COL_ID]),
                         TermId = Convert.ToInt32(reader[SchoolYearTerm.COL_ID]),
+                        Term = new Term { Name = reader[Term.COL_NAME].ToString() },
                         SchoolYear = reader[SchoolYearTerm.COL_SCHOOL_YEAR].ToString(),
                         StartDate = reader[SchoolYearTerm.COL_START_DATE].ToString(),
                         EndDate = reader[SchoolYearTerm.COL_END_DATE].ToString(),

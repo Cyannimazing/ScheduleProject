@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Runtime.ConstrainedExecution;
 using System.Windows.Forms;
+using ScheduleProject.data.controllers;
 using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 using ScheduleProject.InputForm;
@@ -39,7 +40,7 @@ namespace ScheduleProject
 
         public void LoadAllPrograms()
         {
-            var programsList = BaseService.GetAll(BaseService.PROGRAM);
+            var programsList = BaseService.GetAll(Controller.PROGRAM);
             dataGridViewPrograms.Rows.Clear();
 
             foreach (Program program in programsList)

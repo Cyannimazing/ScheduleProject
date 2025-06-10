@@ -1,4 +1,5 @@
 ﻿using ScheduleProject.data.controller;
+using ScheduleProject.data.controllers;
 using ScheduleProject.data.service;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace ScheduleProject.data.models
                     timeSlot.DayOfWeek = dayOfWeeks[i];
                     timeSlot.StartTime = j + ":00";
                     timeSlot.EndTime = (j + 1) + ":00";
-                    BaseService.Create(BaseService.TIME_SLOT, timeSlot);
+                    BaseService.Create(Controller.TIME_SLOT, timeSlot);
                 }
             }
             Trace.WriteLine("Done");

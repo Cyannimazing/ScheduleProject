@@ -1,4 +1,5 @@
-﻿using ScheduleProject.data.models;
+﻿using ScheduleProject.data.controllers;
+using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace ScheduleProject.InputForm
         {
             try
             {
-                int result = BaseService.Create(BaseService.ROOM, new Room { Name = tb_Name.Text});
+                int result = BaseService.Create(Controller.ROOM, new Room { Name = tb_Name.Text});
                 if (result == 1)
                 {
                     MessageBox.Show($"Room added successfully! {result} row(s) inserted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

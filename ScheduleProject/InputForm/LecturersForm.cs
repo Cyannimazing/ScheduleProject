@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using ScheduleProject.data.controllers;
 using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 
@@ -21,7 +22,7 @@ namespace ScheduleProject.InputForm
 
             try
             {
-                int result = BaseService.Create(BaseService.LECTURER, lecturer);
+                int result = BaseService.Create(Controller.LECTURER, lecturer);
                 if (result == 1)
                 {
                     MessageBox.Show($"Lecturer added successfully! {result} row(s) inserted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

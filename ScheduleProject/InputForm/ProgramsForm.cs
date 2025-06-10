@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using ScheduleProject.data.controller;
+using ScheduleProject.data.controllers;
 using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 
@@ -30,7 +31,7 @@ namespace ScheduleProject.InputForm
 
             try
             {
-                int result = BaseService.Create(BaseService.PROGRAM, program);
+                int result = BaseService.Create(Controller.PROGRAM, program);
                 if (result == 1)
                 {
                     MessageBox.Show($"Program added successfully! {result} row(s) inserted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
