@@ -24,14 +24,14 @@ namespace ScheduleProject.data.models
         {
             BaseService.Create(Controller.PROGRAM, new Program
             {
-                Code = "BSCS",
-                Name = "Computer Science"
+                Code = "BTEA",
+                Name = "Bachelor of Technology (HONS) in Automotive (BTEA) Prospectus"
             });
-            BaseService.Create(Controller.PROGRAM, new Program
-            {
-                Code = "BSHM",
-                Name = "Hospitality Management"
-            });
+            //BaseService.Create(Controller.PROGRAM, new Program
+            //{
+            //    Code = "BSHM",
+            //    Name = "Hospitality Management"
+            //});
         }
     }
 

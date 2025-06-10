@@ -15,7 +15,6 @@ namespace ScheduleProject.data.models
         public static string COL_FNAME = "fname";
         public static string COL_LNAME = "lname";
 
-        public int Id { get; set; }
         public string Title { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }

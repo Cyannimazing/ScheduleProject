@@ -16,7 +16,6 @@ namespace ScheduleProject.data.models
         public static string COL_CLASS_ID = "class_id";
         public static string COL_SY_TERM_ID = "sy_term_id";
 
-        public int Id { get; set; }
         public int LecturerId { get; set; }
         public Lecturer Lecturer { get; set; }
         public string SubjCode { get; set; }

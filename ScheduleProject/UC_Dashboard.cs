@@ -22,6 +22,8 @@ namespace ScheduleProject
         private bool isGridInitialized;
         private List<ScheduleEntry> currentEntries;
 
+
+
         public UC_Dashboard()
         {
             InitializeComponent();
@@ -32,36 +34,12 @@ namespace ScheduleProject
             cmbLecturer.SelectedIndex = 0;
             cmbRoom.SelectedIndex = 0;
 
-            btnPrevWeek.Click += BtnPrevWeek_Click;
-            btnNextWeek.Click += BtnNextWeek_Click;
             btnApplyFilter.Click += BtnApplyFilter_Click;
 
             isGridInitialized = false;
+
         }
 
-        private DateTime GetCurrentWeekMonday()
-        {
-            DateTime today = DateTime.Today;
-            return today.AddDays(-((int)today.DayOfWeek - (int)DayOfWeek.Monday + 7) % 7);
-        }
-
-        private void SetCurrentWeek(DateTime weekStartDate)
-        {
-            currentWeekStart = weekStartDate.Date;
-            DateTime weekEndDate = currentWeekStart.AddDays(4);
-            lblCurrentWeek.Text = $"{currentWeekStart:MMMM dd} - {weekEndDate:MMMM dd, yyyy}";
-            if (isGridInitialized) UpdateScheduleGridAsync();
-        }
-
-        private void BtnPrevWeek_Click(object sender, EventArgs e)
-        {
-            SetCurrentWeek(currentWeekStart.AddDays(-7));
-        }
-
-        private void BtnNextWeek_Click(object sender, EventArgs e)
-        {
-            SetCurrentWeek(currentWeekStart.AddDays(7));
-        }
 
         private void BtnApplyFilter_Click(object sender, EventArgs e)
         {
@@ -74,7 +52,6 @@ namespace ScheduleProject
             {
                 CreateScheduleGrid();
                 isGridInitialized = true;
-                SetCurrentWeek(GetCurrentWeekMonday());
             }
         }
 
@@ -100,13 +77,13 @@ namespace ScheduleProject
 
             // Even row heights
             scheduleTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 40f)); // Header row
-            for (int i = 1; i < 7; i++)
+            for (int i = 1; i < 25; i++)
             {
-                scheduleTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / 6));
+                scheduleTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / 24));
             }
 
             // Pre-allocate headers and time slots
-            string[] dayNames = { "Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+            string[] dayNames = { "Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
             for (int i = 0; i < dayNames.Length; i++)
             {
                 Label label = new Label

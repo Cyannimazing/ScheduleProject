@@ -9,9 +9,6 @@ namespace ScheduleProject.data.models
     public abstract class Model
     {
         public static string COL_ID = "id";
-        public static string COL_CREATED_AT = "created_at";
-        public static string COL_UPDATED_AT = "updated_at";
-        public string CreatedAt { get; set; } = DateTime.Now.ToString();
-        public string UpdatedAt { get; set; } = DateTime.Now.ToString();
+        public int Id { get; set; }
     }
 }

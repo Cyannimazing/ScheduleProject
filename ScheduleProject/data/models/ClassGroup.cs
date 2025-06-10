@@ -14,7 +14,6 @@ namespace ScheduleProject.data.models
         public static string COL_NAME = "name";
         public static string COL_PROGCODE = "prog_code";
 
-        public int Id { get; set; }
         public string Name { get; set; }
         public string ProgCode { get; set; }
         public Program Program { get; set; }

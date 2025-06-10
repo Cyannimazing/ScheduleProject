@@ -25,7 +25,7 @@ namespace ScheduleProject.data.models
             {
                 Term term = new Term
                 {
-                    Name = $"{i} Semester"
+                    Name = $"{i} Term"
                 };
                 BaseService.Create(Controller.TERM, term);
             }

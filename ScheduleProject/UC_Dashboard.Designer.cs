@@ -24,16 +24,11 @@ namespace ScheduleProject
             this.lblLecturer = new System.Windows.Forms.Label();
             this.cmbClass = new System.Windows.Forms.ComboBox();
             this.lblClass = new System.Windows.Forms.Label();
-            this.weekNavPanel = new System.Windows.Forms.Panel();
-            this.btnNextWeek = new System.Windows.Forms.Button();
-            this.lblCurrentWeek = new System.Windows.Forms.Label();
-            this.btnPrevWeek = new System.Windows.Forms.Button();
             this.scheduleGridPanel = new System.Windows.Forms.Panel();
             this.loadingPanel = new System.Windows.Forms.Panel();
             this.loadingLabel = new System.Windows.Forms.Label();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.filterPanel.SuspendLayout();
-            this.weekNavPanel.SuspendLayout();
             this.loadingPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -141,52 +136,12 @@ namespace ScheduleProject
             this.lblClass.TabIndex = 0;
             this.lblClass.Text = "Class:";
             // 
-            // weekNavPanel
-            // 
-            this.weekNavPanel.Controls.Add(this.btnNextWeek);
-            this.weekNavPanel.Controls.Add(this.lblCurrentWeek);
-            this.weekNavPanel.Controls.Add(this.btnPrevWeek);
-            this.weekNavPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.weekNavPanel.Location = new System.Drawing.Point(0, 43);
-            this.weekNavPanel.Name = "weekNavPanel";
-            this.weekNavPanel.Size = new System.Drawing.Size(686, 35);
-            this.weekNavPanel.TabIndex = 1;
-            // 
-            // btnNextWeek
-            // 
-            this.btnNextWeek.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnNextWeek.Location = new System.Drawing.Point(557, 4);
-            this.btnNextWeek.Name = "btnNextWeek";
-            this.btnNextWeek.Size = new System.Drawing.Size(86, 22);
-            this.btnNextWeek.TabIndex = 2;
-            this.btnNextWeek.Text = "Next Week";
-            this.btnNextWeek.UseVisualStyleBackColor = true;
-            // 
-            // lblCurrentWeek
-            // 
-            this.lblCurrentWeek.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCurrentWeek.Location = new System.Drawing.Point(257, 4);
-            this.lblCurrentWeek.Name = "lblCurrentWeek";
-            this.lblCurrentWeek.Size = new System.Drawing.Size(171, 22);
-            this.lblCurrentWeek.TabIndex = 1;
-            this.lblCurrentWeek.Text = "June 02 - June 06, 2025";
-            this.lblCurrentWeek.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnPrevWeek
-            // 
-            this.btnPrevWeek.Location = new System.Drawing.Point(43, 4);
-            this.btnPrevWeek.Name = "btnPrevWeek";
-            this.btnPrevWeek.Size = new System.Drawing.Size(86, 22);
-            this.btnPrevWeek.TabIndex = 0;
-            this.btnPrevWeek.Text = "Previous Week";
-            this.btnPrevWeek.UseVisualStyleBackColor = true;
-            // 
             // scheduleGridPanel
             // 
             this.scheduleGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scheduleGridPanel.Location = new System.Drawing.Point(0, 78);
+            this.scheduleGridPanel.Location = new System.Drawing.Point(0, 43);
             this.scheduleGridPanel.Name = "scheduleGridPanel";
-            this.scheduleGridPanel.Size = new System.Drawing.Size(686, 399);
+            this.scheduleGridPanel.Size = new System.Drawing.Size(686, 434);
             this.scheduleGridPanel.TabIndex = 2;
             // 
             // loadingPanel
@@ -194,9 +149,9 @@ namespace ScheduleProject
             this.loadingPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.loadingPanel.Controls.Add(this.loadingLabel);
             this.loadingPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.loadingPanel.Location = new System.Drawing.Point(0, 78);
+            this.loadingPanel.Location = new System.Drawing.Point(0, 43);
             this.loadingPanel.Name = "loadingPanel";
-            this.loadingPanel.Size = new System.Drawing.Size(686, 399);
+            this.loadingPanel.Size = new System.Drawing.Size(686, 434);
             this.loadingPanel.TabIndex = 3;
             this.loadingPanel.Visible = false;
             // 
@@ -215,14 +170,12 @@ namespace ScheduleProject
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.loadingPanel);
             this.Controls.Add(this.scheduleGridPanel);
-            this.Controls.Add(this.weekNavPanel);
             this.Controls.Add(this.filterPanel);
             this.Name = "UC_Dashboard";
             this.Size = new System.Drawing.Size(686, 477);
             this.Load += new System.EventHandler(this.UC_Dashboard_Load);
             this.filterPanel.ResumeLayout(false);
             this.filterPanel.PerformLayout();
-            this.weekNavPanel.ResumeLayout(false);
             this.loadingPanel.ResumeLayout(false);
             this.loadingPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -237,10 +190,6 @@ namespace ScheduleProject
         private System.Windows.Forms.Label lblLecturer;
         private System.Windows.Forms.ComboBox cmbClass;
         private System.Windows.Forms.Label lblClass;
-        private System.Windows.Forms.Panel weekNavPanel;
-        private System.Windows.Forms.Button btnNextWeek;
-        private System.Windows.Forms.Label lblCurrentWeek;
-        private System.Windows.Forms.Button btnPrevWeek;
         private System.Windows.Forms.Panel scheduleGridPanel;
         private System.Windows.Forms.Panel loadingPanel;
         private System.Windows.Forms.Label loadingLabel;

@@ -17,12 +17,11 @@ namespace ScheduleProject.data.controller
             var m = model as models.TimeSlot;
 
             var query = db.CreateCommand();
-            query.CommandText = @"INSERT INTO Time_Slots(day, start_time, end_time)
-                              VALUES (@day, @start_time, @end_time);";
+            query.CommandText = @"INSERT INTO Time_Slots(day, time)
+                              VALUES (@day, @time);";
 
             query.Parameters.AddWithValue("@day", m.DayOfWeek);
-            query.Parameters.AddWithValue("@start_time", m.StartTime);
-            query.Parameters.AddWithValue("@end_time", m.EndTime);
+            query.Parameters.AddWithValue("@time", m.Time);
 
             try { return query.ExecuteNonQuery(); } catch { return -1; }finally{ db.Close(); }
         }
@@ -43,15 +42,12 @@ namespace ScheduleProject.data.controller
                     {
                         Id = Convert.ToInt32(reader[TimeSlot.COL_ID]),
                         DayOfWeek = reader[TimeSlot.COL_DAY].ToString(),
-                        StartTime = reader[TimeSlot.COL_START_TIME].ToString(),
-                        EndTime = reader[TimeSlot.COL_END_TIME].ToString()
+                        Time = reader[TimeSlot.COL_TIME].ToString(),
                     });
                 }
             }
             db.Close();
             return list;
         }
-
-        
     }
 }

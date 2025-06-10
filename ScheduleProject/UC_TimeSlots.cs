@@ -43,7 +43,7 @@ namespace ScheduleProject
 
             foreach (TimeSlot timeslot in timeslots)
             {
-                dataGridViewTimeSlots.Rows.Add(timeslot.Id, timeslot.DayOfWeek, timeslot.StartTime, timeslot.EndTime);
+                dataGridViewTimeSlots.Rows.Add(timeslot.Id, timeslot.DayOfWeek, timeslot.Time);
             }
             
         }

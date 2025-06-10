@@ -28,7 +28,7 @@ namespace ScheduleProject
 
             var db = new DatabaseService();
 
-            //TimeSlot.TimeSlotSeeder();
+            TimeSlot.TimeSlotSeeder();
             //Program.ProgramSeeder();
             //Lecturer.LecturerSeeder();
             //Term.TermSeeder();

@@ -13,9 +13,8 @@ namespace ScheduleProject.data.migration
             return @"CREATE TABLE IF NOT EXISTS Time_Slots (
                     id INTEGER PRIMARY KEY,
                     day TEXT NOT NULL,
-                    start_time TEXT NOT NULL,
-                    end_time TEXT NOT NULL,
-                    UNIQUE (day, start_time)
+                    time TEXT NOT NULL,
+                    UNIQUE (day, time)
                 );";
         }
     }

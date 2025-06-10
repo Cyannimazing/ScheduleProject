@@ -30,29 +30,62 @@ namespace ScheduleProject.data.models
 
         public static void SubjectSeeder()
         {
-            BaseService.Create(Controller.SUBJECT, new Subject
+            List<Subject> subjectLists = new List<Subject>();
+            subjectLists.Add(new Subject
             {
-                Code = "CS101",
-                Name = "Introduction to Computer Science",
-                Unit = 3,
+                Code = "BTEA 1101",
+                Name = "Technical Communication",
+                Unit = 0,
                 IsGenEd = false,
-                TermId = 1 // You can change this based on the actual existing Term ID
+                TermId = 0,
             });
-            BaseService.Create(Controller.SUBJECT, new Subject
+            subjectLists.Add(new Subject
             {
-                Code = "EN101",
-                Name = "English 1",
-                Unit = 3,
-                IsGenEd = true,
-                TermId = 1 // You can change this based on the actual existing Term ID
-            });
-            BaseService.Create(Controller.SUBJECT, new Subject
-            {
-                Code = "Cookery 101",
-                Name = "Cookery 1",
-                Unit = 3,
+                Code = "BTEA 1102",
+                Name = "Soft Skills I",
+                Unit = 0,
                 IsGenEd = false,
-                TermId = 1 // You can change this based on the actual existing Term ID
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MATH 1610",
+                Name = "Engineering Mathematics I",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "AUTO 1001",
+                Name = "Introduction to Automotive Technology",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1404",
+                Name = "Thermofluids",
+                Unit = 0,
+                IsGenEd = false,    
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1206",
+                Name = "Fundamental of Engineering Mechanics",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
             });
         }
     }
