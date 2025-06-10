@@ -16,19 +16,15 @@ namespace ScheduleProject.data.migration
                     name TEXT NOT NULL,
                     unit INTEGER NOT NULL,
                     is_gen_ed BOOLEAN DEFAULT 0,
-                    term_id INTEGER NOT NULL,
                     created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (term_id) REFERENCES Terms(id) ON UPDATE CASCADE ON DELETE RESTRICT
+                    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
                 );
 
                 CREATE TRIGGER IF NOT EXISTS update_subjects_timestamp 
                 AFTER UPDATE ON Subjects
                 BEGIN
                     UPDATE Subjects SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
-                END;
-
-                CREATE INDEX IF NOT EXISTS idx_subjects_term ON Subjects(term_id);";
+                END;";
         }
     }
 }
