@@ -15,8 +15,8 @@ namespace ScheduleProject.data.migration
                     title TEXT NOT NULL,
                     fname TEXT NOT NULL,
                     lname TEXT NOT NULL,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
                     UNIQUE (fname, lname)
                 );
 

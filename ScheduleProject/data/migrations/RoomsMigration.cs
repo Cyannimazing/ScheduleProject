@@ -12,10 +12,10 @@ namespace ScheduleProject.data.migration
         {
             return @"CREATE TABLE IF NOT EXISTS Rooms (
                     id INTEGER PRIMARY KEY,
-                    name TEXT UNIQUE NOT NULL
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,                
-);
+                    name TEXT UNIQUE NOT NULL,
+                    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TEXT DEFAULT CURRENT_TIMESTAMP);
+
                 CREATE TRIGGER IF NOT EXISTS update_room
                 AFTER UPDATE ON Rooms
                 BEGIN

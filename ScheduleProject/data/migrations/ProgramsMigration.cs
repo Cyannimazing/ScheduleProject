@@ -14,8 +14,8 @@ namespace ScheduleProject.data.migration
                     id INTEGER PRIMARY KEY,
                     code TEXT UNIQUE NOT NULL,
                     name TEXT NOT NULL,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
                 );
 
                 CREATE TRIGGER IF NOT EXISTS update_programs_timestamp 

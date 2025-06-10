@@ -13,7 +13,7 @@ namespace ScheduleProject.data.migration
             return @"CREATE TABLE IF NOT EXISTS Program_Subjects (
                     prog_code TEXT NOT NULL,
                     subj_code TEXT NOT NULL,
-                    year TEXT NOT NULL,
+                    year_level TEXT NOT NULL,
                     PRIMARY KEY (prog_code, subj_code),
                     FOREIGN KEY (prog_code) REFERENCES Programs(code) ON UPDATE CASCADE ON DELETE CASCADE,
                     FOREIGN KEY (subj_code) REFERENCES Subjects(code) ON UPDATE CASCADE ON DELETE CASCADE

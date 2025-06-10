@@ -14,8 +14,8 @@ namespace ScheduleProject.data.migration
                     id INTEGER PRIMARY KEY,
                     name TEXT NOT NULL,
                     prog_code TEXT NOT NULL,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
                     UNIQUE (name, prog_code),
                     FOREIGN KEY (prog_code) REFERENCES Programs(code) ON UPDATE CASCADE ON DELETE RESTRICT
                 );

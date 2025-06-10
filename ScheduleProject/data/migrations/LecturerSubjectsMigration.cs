@@ -14,11 +14,11 @@ namespace ScheduleProject.data.migration
                     lecturer_id INTEGER NOT NULL,
                     subj_code TEXT NOT NULL,
                     sy_term_id INTEGER NOT NULL,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
                     PRIMARY KEY (lecturer_id, subj_code),
                     FOREIGN KEY (lecturer_id) REFERENCES Lecturers(id) ON UPDATE CASCADE ON DELETE CASCADE,
-                    FOREIGN KEY (subj_code) REFERENCES Subjects(code) ON UPDATE CASCADE ON DELETE CASCADE
+                    FOREIGN KEY (subj_code) REFERENCES Subjects(code) ON UPDATE CASCADE ON DELETE CASCADE,
                     FOREIGN KEY (sy_term_id) REFERENCES SchoolYearTerms(id) ON UPDATE CASCADE ON DELETE CASCADE
                 );
 

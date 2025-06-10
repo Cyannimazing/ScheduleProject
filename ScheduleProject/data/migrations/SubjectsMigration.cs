@@ -17,8 +17,8 @@ namespace ScheduleProject.data.migration
                     unit INTEGER NOT NULL,
                     is_gen_ed BOOLEAN DEFAULT 0,
                     term_id INTEGER NOT NULL,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
                     FOREIGN KEY (term_id) REFERENCES Terms(id) ON UPDATE CASCADE ON DELETE RESTRICT
                 );
 
