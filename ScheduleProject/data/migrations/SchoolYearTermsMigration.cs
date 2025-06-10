@@ -13,7 +13,7 @@ namespace ScheduleProject.data.migration
             return @"CREATE TABLE IF NOT EXISTS School_Year_Terms (
                     id INTEGER PRIMARY KEY,
                     term_id INTEGER NOT NULL,
-                    school_year DATE NOT NULL,
+                    school_year TEXT NOT NULL,
                     start_date TEXT NOT NULL,
                     end_date TEXT NOT NULL,
                     created_at TEXT DEFAULT CURRENT_TIMESTAMP,

@@ -54,7 +54,7 @@ namespace ScheduleProject
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            // Placeholder for data refresh
+            LoadAllTerms();
         }
 
         private void Button_MouseEnter(object sender, EventArgs e)

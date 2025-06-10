@@ -37,14 +37,14 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.cb_Term = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.startDate = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.endDate = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.startYear = new System.Windows.Forms.DateTimePicker();
-            this.endYear = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
+            this.endYear = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnClose
@@ -144,14 +144,14 @@
             this.cb_Term.Size = new System.Drawing.Size(244, 29);
             this.cb_Term.TabIndex = 23;
             // 
-            // dateTimePicker1
+            // startDate
             // 
-            this.dateTimePicker1.CustomFormat = "yyyy";
-            this.dateTimePicker1.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.dateTimePicker1.Location = new System.Drawing.Point(62, 225);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(244, 29);
-            this.dateTimePicker1.TabIndex = 25;
+            this.startDate.CustomFormat = "yyyy";
+            this.startDate.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.startDate.Location = new System.Drawing.Point(62, 225);
+            this.startDate.Name = "startDate";
+            this.startDate.Size = new System.Drawing.Size(244, 29);
+            this.startDate.TabIndex = 25;
             // 
             // label2
             // 
@@ -177,13 +177,13 @@
             this.label3.TabIndex = 28;
             this.label3.Text = "End Date";
             // 
-            // dateTimePicker2
+            // endDate
             // 
-            this.dateTimePicker2.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.dateTimePicker2.Location = new System.Drawing.Point(62, 281);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(244, 29);
-            this.dateTimePicker2.TabIndex = 27;
+            this.endDate.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.endDate.Location = new System.Drawing.Point(62, 281);
+            this.endDate.Name = "endDate";
+            this.endDate.Size = new System.Drawing.Size(244, 29);
+            this.endDate.TabIndex = 27;
             // 
             // label1
             // 
@@ -206,15 +206,6 @@
             this.startYear.Size = new System.Drawing.Size(107, 29);
             this.startYear.TabIndex = 31;
             // 
-            // endYear
-            // 
-            this.endYear.CustomFormat = "yyyy";
-            this.endYear.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.endYear.Location = new System.Drawing.Point(199, 169);
-            this.endYear.Name = "endYear";
-            this.endYear.Size = new System.Drawing.Size(107, 29);
-            this.endYear.TabIndex = 32;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -227,20 +218,29 @@
             this.label4.TabIndex = 33;
             this.label4.Text = "-";
             // 
+            // endYear
+            // 
+            this.endYear.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.endYear.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.endYear.Location = new System.Drawing.Point(199, 169);
+            this.endYear.Name = "endYear";
+            this.endYear.Size = new System.Drawing.Size(107, 29);
+            this.endYear.TabIndex = 34;
+            // 
             // SYTermsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(373, 412);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.endYear);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.startYear);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.dateTimePicker2);
+            this.Controls.Add(this.endDate);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.startDate);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cb_Term);
             this.Controls.Add(this.panel3);
@@ -270,13 +270,13 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cb_Term;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker startDate;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker endDate;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker startYear;
-        private System.Windows.Forms.DateTimePicker endYear;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox endYear;
     }
 }
