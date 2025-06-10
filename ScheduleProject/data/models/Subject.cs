@@ -86,6 +86,246 @@ namespace ScheduleProject.data.models
                 IsGenEd = false,
                 TermId = 0,
             });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
+            subjectLists.Add(new Subject
+            {
+                Code = "MECH 1502",
+                Name = "Engineering Drawing",
+                Unit = 0,
+                IsGenEd = false,
+                TermId = 0,
+            });
         }
     }
 }
