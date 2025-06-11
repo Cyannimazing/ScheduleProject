@@ -29,7 +29,7 @@ namespace ScheduleProject
             dataGridViewRooms.DefaultCellStyle.BackColor = lightColor;
             dataGridViewRooms.DefaultCellStyle.ForeColor = primaryColor;
             dataGridViewRooms.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-            dataGridViewRooms.ColumnHeadersDefaultCellStyle.BackColor = secondaryColor;
+            dataGridViewRooms.ColumnHeadersDefaultCellStyle.BackColor = primaryColor;
             dataGridViewRooms.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGridViewRooms.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             dataGridViewRooms.EnableHeadersVisualStyles = false;
@@ -43,7 +43,7 @@ namespace ScheduleProject
 
             foreach (Room room in roomList)
             {
-                dataGridViewRooms.Rows.Add(room.Id, room.Name, room.CreatedAt, room.UpdatedAt);
+                dataGridViewRooms.Rows.Add(room.Id, room.Name);
             }
 
         }
@@ -55,36 +55,11 @@ namespace ScheduleProject
             LoadSampleData();
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Edit room functionality not implemented.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Delete room functionality not implemented.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             dataGridViewRooms.Rows.Clear();
             LoadSampleData();
         }
 
-        private void Button_MouseEnter(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.BackColor = hoverColor;
-            }
-        }
-
-        private void Button_MouseLeave(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.BackColor = accentColor;
-            }
-        }
     }
 }

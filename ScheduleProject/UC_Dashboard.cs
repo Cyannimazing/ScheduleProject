@@ -1,125 +1,147 @@
 using System;
-using System.Collections.Generic; // Changed from ArrayList to List
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
-using System.Linq;
 
 namespace ScheduleProject
 {
     public partial class UC_Dashboard : UserControl
     {
         private Color[] schedulePalette = new Color[] {
-            ColorTranslator.FromHtml("#A2C8EC"), // Light Blue
-            ColorTranslator.FromHtml("#F9C19F"), // Light Peach
-            ColorTranslator.FromHtml("#C9E6A7"), // Light Green
-            ColorTranslator.FromHtml("#E6B0E4"), // Light Purple
-            ColorTranslator.FromHtml("#FADF8A")  // Light Yellow
+            ColorTranslator.FromHtml("#A2C8EC"),
+            ColorTranslator.FromHtml("#F9C19F"),
+            ColorTranslator.FromHtml("#C9E6A7"),
+            ColorTranslator.FromHtml("#E6B0E4"),
+            ColorTranslator.FromHtml("#FADF8A")
         };
 
-        private TableLayoutPanel scheduleTable;
+        private DoubleBufferedTableLayoutPanel scheduleTable;
         private Panel[] scheduleCells;
+        private Label loadingLabel;
         private bool isGridInitialized;
-        private List<ScheduleEntry> currentEntries = new List<ScheduleEntry>(); // Initialized List<ScheduleEntry>
+        private List<ScheduleEntry> currentEntries;
         private string[] timeSlots = { "08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "1:00 - 2:00", "2:00 - 3:00", "3:00 - 4:00", "4:00 - 5:00" };
         private string[] dayNames = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
+        private System.Timers.Timer debounceTimer;
 
         public UC_Dashboard()
         {
             InitializeComponent();
-            DoubleBuffered = true;
-            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            scheduleTable = new DoubleBufferedTableLayoutPanel();
 
-            // Populate combobox items
-            cmbClass.Items.AddRange(new object[] {
-                "All",
-                "GFP (C)",
-                "GFP (B)",
-                "GFP (A)"
-            });
-            cmbLecturer.Items.AddRange(new object[] {
-                "Ms. Hawa Almujaini",
-                "Dr. Ahmed Khalid",
-                "Prof. Sara Ismail"
-            });
-            cmbRoom.Items.AddRange(new object[] {
-                "All",
-                "Room 101",
-                "Room 102",
-                "Room 103",
-                "Lab 201",
-                "Lab 202"
-            });
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+
+            currentEntries = new List<ScheduleEntry>();
+            debounceTimer = new System.Timers.Timer(100) { AutoReset = false };
+            debounceTimer.Elapsed += async (s, e) => await UpdateScheduleGridAsync();
+
+            cmbClass.Items.AddRange(new object[] { "All", "GFP (C)", "GFP (B)", "GFP (A)" });
+            cmbLecturer.Items.AddRange(new object[] { "Ms. Hawa Almujaini", "Dr. Ahmed Khalid", "Prof. Sara Ismail" });
+            cmbRoom.Items.AddRange(new object[] { "All", "Room 101", "Room 102", "Room 103", "Lab 201", "Lab 202" });
 
             cmbClass.SelectedIndex = 0;
             cmbLecturer.SelectedIndex = 0;
             cmbRoom.SelectedIndex = 0;
             isGridInitialized = false;
+
+            cmbClass.SelectedIndexChanged += (s, e) => DebounceUpdate();
+            cmbLecturer.SelectedIndexChanged += (s, e) => DebounceUpdate();
+            cmbRoom.SelectedIndexChanged += (s, e) => DebounceUpdate();
+        }
+
+        private void DebounceUpdate()
+        {
+            debounceTimer.Stop();
+            debounceTimer.Start();
         }
 
         private void UC_Dashboard_Load(object sender, EventArgs e)
         {
             if (!isGridInitialized)
             {
+                CreateLoadingLabel();
                 CreateScheduleGrid();
-                isGridInitialized = true;
                 LoadSampleData();
-                UpdateScheduleGridAsync(); // Initial load
+                isGridInitialized = true;
+                UpdateScheduleGrid();
             }
+        }
+
+        private void CreateLoadingLabel()
+        {
+            loadingLabel = new Label
+            {
+                Text = "Loading Schedule...",
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Fill,
+                BackColor = Color.FromArgb(200, Color.WhiteSmoke),
+                Visible = true
+            };
+            scheduleGridPanel.Controls.Add(loadingLabel);
+            loadingLabel.BringToFront();
         }
 
         private void CreateScheduleGrid()
         {
             scheduleGridPanel.Controls.Clear();
+            scheduleGridPanel.SuspendLayout();
 
-            scheduleTable = new TableLayoutPanel
+            scheduleTable = new DoubleBufferedTableLayoutPanel
             {
                 Dock = DockStyle.Fill,
                 CellBorderStyle = TableLayoutPanelCellBorderStyle.Single,
-                RowCount = timeSlots.Length + 1, // Number of slots + header
+                RowCount = timeSlots.Length + 1,
                 ColumnCount = 6,
                 AutoSize = false,
                 BackColor = Color.White
             };
-            scheduleGridPanel.Controls.Add(scheduleTable);
 
-            // Even column widths
             for (int i = 0; i < 6; i++)
             {
                 scheduleTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 6));
             }
 
-            // Headers and time slots
+            scheduleTable.RowStyles.Clear();
+            scheduleTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 40));
+            for (int i = 0; i < timeSlots.Length; i++)
+            {
+                scheduleTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / timeSlots.Length));
+            }
+
+            scheduleGridPanel.Controls.Add(scheduleTable);
+            scheduleGridPanel.Controls.Add(loadingLabel);
+
             string[] headers = { "Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
             for (int i = 0; i < headers.Length; i++)
             {
-                Label label = new Label
+                scheduleTable.Controls.Add(new Label
                 {
                     Text = headers[i],
                     Dock = DockStyle.Fill,
                     TextAlign = ContentAlignment.MiddleCenter,
                     BackColor = Color.LightGray,
-                    Font = new Font("Arial", 10, FontStyle.Bold)
-                };
-                scheduleTable.Controls.Add(label, i, 0);
+                    Font = new Font("Segoe UI", 10, FontStyle.Bold)
+                }, i, 0);
             }
 
             for (int row = 0; row < timeSlots.Length; row++)
             {
-                Label label = new Label
+                scheduleTable.Controls.Add(new Label
                 {
                     Text = timeSlots[row],
                     Dock = DockStyle.Fill,
                     TextAlign = ContentAlignment.MiddleCenter,
                     BackColor = Color.WhiteSmoke,
-                    Font = new Font("Arial", 9)
-                };
-                scheduleTable.Controls.Add(label, 0, row + 1);
+                    Font = new Font("Segoe UI", 9)
+                }, 0, row + 1);
             }
 
-            // Pre-allocate cells dynamically
             scheduleCells = new Panel[timeSlots.Length * 5];
             int index = 0;
             for (int row = 1; row <= timeSlots.Length; row++)
@@ -137,89 +159,89 @@ namespace ScheduleProject
                     scheduleCells[index++] = cell;
                 }
             }
+
+            scheduleGridPanel.ResumeLayout(false);
         }
 
-        private async void UpdateScheduleGridAsync()
+        private void UpdateScheduleGrid()
         {
-            if (currentEntries == null)
+            if (currentEntries == null || !currentEntries.Any() || scheduleTable == null || cmbLecturer.SelectedItem == null)
             {
-                return; // Safety check
+                loadingLabel.Text = "No Data Available or No Lecturer Selected";
+                loadingLabel.Visible = true;
+                return;
             }
 
-            scheduleGridPanel.Visible = false;
+            loadingLabel.Visible = true;
+            scheduleGridPanel.SuspendLayout();
 
-            string selectedLecturer = cmbLecturer.SelectedItem?.ToString();
-            string selectedClass = cmbClass.SelectedItem?.ToString();
-            string selectedRoom = cmbRoom.SelectedItem?.ToString();
+            string selectedLecturer = cmbLecturer.SelectedItem.ToString();
+            string selectedClass = cmbClass.SelectedItem?.ToString() ?? "All";
+            string selectedRoom = cmbRoom.SelectedItem?.ToString() ?? "All";
 
-            await Task.Run(() =>
+            var cellUpdates = new List<(int Index, ScheduleEntry Entry)>();
+            foreach (ScheduleEntry entry in currentEntries)
             {
-                if (scheduleTable == null) return;
+                bool matchLecturer = entry.Lecturer == selectedLecturer;
+                bool matchClass = selectedClass == "All" || entry.ClassName == selectedClass;
+                bool matchRoom = selectedRoom == "All" || entry.Room == selectedRoom;
 
-                var cellUpdates = new List<Tuple<int, ScheduleEntry>>();
-                foreach (ScheduleEntry entry in currentEntries)
+                if (matchLecturer && matchClass && matchRoom)
                 {
-                    bool matchLecturer = entry.Lecturer == selectedLecturer;
-                    bool matchClass = selectedClass == "All" || entry.ClassName == selectedClass;
-                    bool matchRoom = selectedRoom == "All" || entry.Room == selectedRoom;
-
-                    if (matchLecturer && matchClass && matchRoom)
+                    int dayIndex = Array.IndexOf(dayNames, entry.Day);
+                    int timeSlotIndex = Array.IndexOf(timeSlots, entry.TimeSlot);
+                    if (dayIndex >= 0 && timeSlotIndex >= 0)
                     {
-                        int dayIndex = Array.IndexOf(dayNames, entry.Day);
-                        int timeSlotIndex = Array.IndexOf(timeSlots, entry.TimeSlot);
-                        if (dayIndex >= 0 && timeSlotIndex >= 0)
+                        int index = timeSlotIndex * 5 + dayIndex;
+                        if (index >= 0 && index < scheduleCells.Length)
                         {
-                            int index = timeSlotIndex * 5 + dayIndex;
-                            if (index >= 0 && index < scheduleCells.Length)
-                            {
-                                cellUpdates.Add(Tuple.Create(index, entry));
-                            }
+                            cellUpdates.Add((index, entry));
                         }
                     }
                 }
+            }
 
-                BeginInvoke((Action)(() =>
-                {
-                    for (int i = 0; i < scheduleCells.Length; i++)
-                    {
-                        scheduleCells[i].Controls.Clear();
-                        scheduleCells[i].Tag = null;
-                        scheduleCells[i].BackColor = Color.White;
-                    }
+            foreach (Panel cell in scheduleCells)
+            {
+                cell.Controls.Clear();
+                cell.Tag = null;
+                cell.BackColor = Color.White;
+            }
 
-                    foreach (var update in cellUpdates)
-                    {
-                        int index = update.Item1;
-                        ScheduleEntry entry = update.Item2;
-                        AddScheduleEntry(scheduleCells[index], entry);
-                    }
+            foreach (var update in cellUpdates)
+            {
+                AddScheduleEntry(scheduleCells[update.Index], update.Entry);
+            }
 
-                    scheduleGridPanel.Visible = true;
-                    scheduleTable.Refresh();
-                }));
-            });
+            loadingLabel.Visible = false;
+            scheduleGridPanel.ResumeLayout(true);
+            scheduleGridPanel.Visible = true;
+            scheduleGridPanel.Refresh();
+        }
+
+        private async Task UpdateScheduleGridAsync()
+        {
+            await Task.Run(() => Invoke((Action)UpdateScheduleGrid));
         }
 
         private void AddScheduleEntry(Panel cell, ScheduleEntry entry)
         {
             cell.BackColor = schedulePalette[entry.ColorIndex % schedulePalette.Length];
 
-            TableLayoutPanel layout = new TableLayoutPanel
+            DoubleBufferedTableLayoutPanel layout = new DoubleBufferedTableLayoutPanel
             {
                 Dock = DockStyle.Fill,
-                RowCount = 4,
+                RowCount = 3, // Reduced to 3 rows: Subject, ClassName, Room
                 ColumnCount = 1,
                 AutoSize = false
             };
-            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 30f));
-            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
-            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 25f));
-            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 25f));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 40f)); // Subject
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 30f)); // ClassName
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 30f)); // Room
 
-            layout.Controls.Add(new Label { Text = entry.Subject, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Arial", 8) }, 0, 0);
-            layout.Controls.Add(new Label { Text = entry.ClassName, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Arial", 8) }, 0, 1);
-            layout.Controls.Add(new Label { Text = entry.Lecturer, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Arial", 8) }, 0, 2);
-            layout.Controls.Add(new Label { Text = entry.Room, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Arial", 8) }, 0, 3);
+            layout.Controls.Add(new Label { Text = entry.Subject, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 8) }, 0, 0);
+            layout.Controls.Add(new Label { Text = entry.ClassName, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 8) }, 0, 1);
+            layout.Controls.Add(new Label { Text = entry.Room, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 8) }, 0, 2);
 
             cell.Controls.Add(layout);
             cell.Tag = entry;
@@ -237,7 +259,7 @@ namespace ScheduleProject
         private void LoadSampleData()
         {
             currentEntries.Clear();
-            ScheduleEntry[] sharedData = new ScheduleEntry[]
+            currentEntries.AddRange(new[]
             {
                 new ScheduleEntry("Sunday", "09:00 - 10:00", "ITI", "GFP (C)", "Ms. Hawa Almujaini", "Room 101", 4),
                 new ScheduleEntry("Sunday", "10:00 - 11:00", "ITI", "GFP (B)", "Dr. Ahmed Khalid", "Room 102", 2),
@@ -253,9 +275,7 @@ namespace ScheduleProject
                 new ScheduleEntry("Wednesday", "10:00 - 11:00", "English", "GFP (C)", "Prof. Sara Ismail", "Lab 201", 3),
                 new ScheduleEntry("Thursday", "11:00 - 12:00", "History", "GFP (A)", "Ms. Hawa Almujaini", "Lab 202", 4),
                 new ScheduleEntry("Thursday", "08:00 - 09:00", "Literature", "GFP (B)", "Dr. Ahmed Khalid", "Room 101", 0)
-            };
-
-            currentEntries.AddRange(sharedData);
+            });
         }
 
         private void generate_report_Click(object sender, EventArgs e)
@@ -269,74 +289,78 @@ namespace ScheduleProject
                 {
                     try
                     {
-                        scheduleGridPanel.SuspendLayout();
-                        scheduleGridPanel.ResumeLayout(true);
-                        scheduleGridPanel.PerformLayout();
+                        scheduleGridPanel.Visible = true;
+                        scheduleGridPanel.Update();
+                        scheduleGridPanel.Refresh();
 
-                        Bitmap bmp = new Bitmap(scheduleGridPanel.Width, scheduleGridPanel.Height);
-                        scheduleGridPanel.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
-
-                        using (var memoryStream = new System.IO.MemoryStream())
+                        using (Bitmap bmp = new Bitmap(scheduleGridPanel.Width, scheduleGridPanel.Height))
                         {
-                            bmp.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-                            memoryStream.Position = 0;
+                            scheduleGridPanel.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
 
-                            using (PdfSharp.Pdf.PdfDocument document = new PdfSharp.Pdf.PdfDocument())
+                            using (var memoryStream = new System.IO.MemoryStream())
                             {
-                                PdfSharp.Pdf.PdfPage page = document.AddPage();
-                                page.Size = PdfSharp.PageSize.A4;
-                                page.Orientation = PdfSharp.PageOrientation.Portrait;
+                                bmp.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                                memoryStream.Position = 0;
 
-                                using (PdfSharp.Drawing.XGraphics gfx = PdfSharp.Drawing.XGraphics.FromPdfPage(page))
+                                using (PdfDocument document = new PdfDocument())
                                 {
-                                    var fontTitle = new PdfSharp.Drawing.XFont("Arial", 16, PdfSharp.Drawing.XFontStyle.Bold);
-                                    var fontHeader = new PdfSharp.Drawing.XFont("Arial", 12, PdfSharp.Drawing.XFontStyle.Regular);
+                                    PdfPage page = document.AddPage();
+                                    page.Size = PdfSharp.PageSize.A4;
+                                    page.Orientation = PdfSharp.PageOrientation.Portrait;
 
-                                    double margin = 40;
-                                    double y = margin;
-
-                                    gfx.DrawString("FOUNDATION PROGRAM", fontTitle, PdfSharp.Drawing.XBrushes.Black, new PdfSharp.Drawing.XPoint(page.Width / 2, y), PdfSharp.Drawing.XStringFormats.TopCenter);
-                                    y += 25;
-                                    gfx.DrawString("LECTURER'S LOAD", fontTitle, PdfSharp.Drawing.XBrushes.Black, new PdfSharp.Drawing.XPoint(page.Width / 2, y), PdfSharp.Drawing.XStringFormats.TopCenter);
-                                    y += 40;
-
-                                    string lecturerName = $"Lecturer Name: {cmbLecturer.SelectedItem ?? "Unknown"}";
-                                    int teachingLoadCount = currentEntries.Count(entry => entry.Lecturer == cmbLecturer.SelectedItem?.ToString());
-                                    string teachingLoad = $"No. of Teaching Load: {teachingLoadCount}";
-                                    string subjectsTaught = "Subjects Taught: IT, Soft Skills"; // Could be dynamically generated
-
-                                    gfx.DrawString(lecturerName, fontHeader, PdfSharp.Drawing.XBrushes.Black, margin, y);
-                                    gfx.DrawString(teachingLoad, fontHeader, PdfSharp.Drawing.XBrushes.Black, page.Width - margin - 200, y);
-                                    y += 20;
-                                    gfx.DrawString(subjectsTaught, fontHeader, PdfSharp.Drawing.XBrushes.Black, margin, y);
-                                    y += 30;
-
-                                    using (PdfSharp.Drawing.XImage img = PdfSharp.Drawing.XImage.FromStream(memoryStream))
+                                    using (XGraphics gfx = XGraphics.FromPdfPage(page))
                                     {
-                                        double imgWidth = img.PixelWidth * 72 / img.HorizontalResolution;
-                                        double imgHeight = img.PixelHeight * 72 / img.VerticalResolution;
+                                        var fontTitle = new XFont("Segoe UI", 16, XFontStyle.Bold);
+                                        var fontHeader = new XFont("Segoe UI", 12, XFontStyle.Regular);
 
-                                        double scale = 1.0;
-                                        if (imgWidth > page.Width - 2 * margin)
+                                        double margin = 40;
+                                        double y = margin;
+
+                                        gfx.DrawString("FOUNDATION PROGRAM", fontTitle, XBrushes.Black, new XPoint(page.Width / 2, y), XStringFormats.TopCenter);
+                                        y += 25;
+                                        gfx.DrawString("LECTURER'S LOAD", fontTitle, XBrushes.Black, new XPoint(page.Width / 2, y), XStringFormats.TopCenter);
+                                        y += 40;
+
+                                        string lecturerName = $"Lecturer Name: {cmbLecturer.SelectedItem ?? "Unknown"}";
+                                        int teachingLoadCount = currentEntries.Count(entry => entry.Lecturer == (cmbLecturer.SelectedItem?.ToString() ?? "Unknown"));
+                                        string teachingLoad = $"No. of Teaching Load: {teachingLoadCount}";
+                                        string subjectsTaught = "Subjects Taught: " + string.Join(", ", currentEntries
+                                            .Where(entry => entry.Lecturer == (cmbLecturer.SelectedItem?.ToString() ?? "Unknown"))
+                                            .Select(entry => entry.Subject)
+                                            .Distinct());
+
+                                        gfx.DrawString(lecturerName, fontHeader, XBrushes.Black, margin, y);
+                                        gfx.DrawString(teachingLoad, fontHeader, XBrushes.Black, page.Width - margin - 200, y);
+                                        y += 20;
+                                        gfx.DrawString(subjectsTaught, fontHeader, XBrushes.Black, margin, y);
+                                        y += 30;
+
+                                        using (XImage img = XImage.FromStream(memoryStream))
                                         {
-                                            scale = (page.Width - 2 * margin) / imgWidth;
+                                            double imgWidth = img.PixelWidth * 72 / img.HorizontalResolution;
+                                            double imgHeight = img.PixelHeight * 72 / img.VerticalResolution;
+
+                                            double scale = 1.0;
+                                            if (imgWidth > page.Width - 2 * margin)
+                                            {
+                                                scale = (page.Width - 2 * margin) / imgWidth;
+                                            }
+
+                                            double imgX = (page.Width - imgWidth * scale) / 2;
+                                            double imgY = y;
+
+                                            gfx.DrawImage(img, imgX, imgY, imgWidth * scale, imgHeight * scale);
+                                            y += imgHeight * scale;
                                         }
 
-                                        double imgX = (page.Width - imgWidth * scale) / 2;
-                                        double imgY = y;
-
-                                        gfx.DrawImage(img, imgX, imgY, imgWidth * scale, imgHeight * scale);
-
-                                        y += imgHeight * scale;
+                                        y += 30;
+                                        gfx.DrawString("Signed by:", fontHeader, XBrushes.Black, margin, y);
+                                        gfx.DrawLine(XPens.Black, margin + 60, y + 5, margin + 250, y + 5);
+                                        gfx.DrawString("Lecturer", fontHeader, XBrushes.Black, margin + 60, y + 20);
                                     }
 
-                                    y += 30;
-                                    gfx.DrawString("Signed by:", fontHeader, PdfSharp.Drawing.XBrushes.Black, margin, y);
-                                    gfx.DrawLine(PdfSharp.Drawing.XPens.Black, margin + 60, y + 5, margin + 250, y + 5);
-                                    gfx.DrawString("Lecturer", fontHeader, PdfSharp.Drawing.XBrushes.Black, margin + 60, y + 10);
+                                    document.Save(sfd.FileName);
                                 }
-
-                                document.Save(sfd.FileName);
                             }
                         }
 

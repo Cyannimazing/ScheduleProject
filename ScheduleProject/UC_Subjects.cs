@@ -29,7 +29,7 @@ namespace ScheduleProject
             dataGridViewSubjects.DefaultCellStyle.BackColor = lightColor;
             dataGridViewSubjects.DefaultCellStyle.ForeColor = primaryColor;
             dataGridViewSubjects.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-            dataGridViewSubjects.ColumnHeadersDefaultCellStyle.BackColor = secondaryColor;
+            dataGridViewSubjects.ColumnHeadersDefaultCellStyle.BackColor = primaryColor;
             dataGridViewSubjects.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGridViewSubjects.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             dataGridViewSubjects.EnableHeadersVisualStyles = false;
@@ -43,7 +43,7 @@ namespace ScheduleProject
 
             foreach (Subject subject in programsList)
             {
-                dataGridViewSubjects.Rows.Add(subject.Id, subject.Code, subject.Name, subject.Unit, subject.IsGenEd, subject.TermId, subject.CreatedAt, subject.UpdatedAt);
+                dataGridViewSubjects.Rows.Add(subject.Id, subject.Code, subject.Name, subject.Unit, subject.IsGenEd, subject.Term);
             }
         }
 
@@ -54,36 +54,11 @@ namespace ScheduleProject
             LoadSampleData();
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Edit subject functionality not implemented.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Delete subject functionality not implemented.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             dataGridViewSubjects.Rows.Clear();
             LoadSampleData();
         }
 
-        private void Button_MouseEnter(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.BackColor = hoverColor;
-            }
-        }
-
-        private void Button_MouseLeave(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.BackColor = accentColor;
-            }
-        }
     }
 }

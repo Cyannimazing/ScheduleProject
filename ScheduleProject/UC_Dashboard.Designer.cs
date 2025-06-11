@@ -1,5 +1,3 @@
-using System.Drawing;
-
 namespace ScheduleProject
 {
     partial class UC_Dashboard
@@ -60,6 +58,7 @@ namespace ScheduleProject
             this.generate_report.TabIndex = 7;
             this.generate_report.Text = "Generate Report";
             this.generate_report.UseVisualStyleBackColor = false;
+            this.generate_report.Click += new System.EventHandler(this.generate_report_Click);
             // 
             // cmbRoom
             // 
@@ -123,17 +122,13 @@ namespace ScheduleProject
             // 
             // scheduleGridPanel
             // 
+            this.scheduleGridPanel.AutoScroll = true;
             this.scheduleGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scheduleGridPanel.Location = new System.Drawing.Point(0, 43);
-            this.scheduleGridPanel.Name = "scheduleGridPanel";
-            this.scheduleGridPanel.Size = new System.Drawing.Size(686, 434);
-            this.scheduleGridPanel.TabIndex = 2;
-            // 
             this.scheduleGridPanel.Location = new System.Drawing.Point(0, 83);
             this.scheduleGridPanel.Name = "scheduleGridPanel";
             this.scheduleGridPanel.Size = new System.Drawing.Size(1143, 462);
             this.scheduleGridPanel.TabIndex = 2;
-            //
+            // 
             // UC_Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
