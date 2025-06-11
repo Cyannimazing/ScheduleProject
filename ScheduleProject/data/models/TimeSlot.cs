@@ -30,26 +30,22 @@ namespace ScheduleProject.data.models
             dayOfWeeks.Add("THURSDAY");
             for (int i = 0; i <dayOfWeeks.Count; i++)
             {
-                var suffix = "am";
                 for (int j = 8, t = 8; j <= 18; j++, t++)
                 {
-                    if (10 < j && j < 1)
+                    var prefix = "";
+                    if (10 > j )
                     {
-                        suffix = "nn";
-                    }if(14 > j && j > 12)
-                    {
-                        t = 1;
-                        suffix = "pm";
+                        prefix = "0";
                     }
                     TimeSlot timeSlot = new TimeSlot();
                     timeSlot.DayOfWeek = dayOfWeeks[i];
-                    timeSlot.Time = t + ":00 " + suffix;
+                    timeSlot.Time = prefix + t + ":00 ";
                     Trace.WriteLine(timeSlot.DayOfWeek + " " + timeSlot.Time + " " +  BaseService.Create(Controller.TIME_SLOT, timeSlot));
                     if(j != 18)
                     {
                         TimeSlot timeSlot2 = new TimeSlot();
                         timeSlot2.DayOfWeek = dayOfWeeks[i];
-                        timeSlot2.Time = t + ":30 " + suffix;
+                        timeSlot2.Time = prefix + t + ":30 ";
                         Trace.WriteLine(timeSlot2.DayOfWeek + " " + timeSlot2.Time + " " +  BaseService.Create(Controller.TIME_SLOT, timeSlot2));
                     }
                 }
