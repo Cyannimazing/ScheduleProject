@@ -17,14 +17,13 @@ namespace ScheduleProject.data.controller
             var m = model as models.Subject;
 
             var query = db.CreateCommand();
-            query.CommandText = @"INSERT INTO Subjects(code, name, unit, is_gen_ed, term_id) 
-                              VALUES (@code, @name, @unit, @is_gen_ed, @term_id);";
+            query.CommandText = @"INSERT INTO Subjects(code, name, unit, is_gen_ed) 
+                              VALUES (@code, @name, @unit, @is_gen_ed);";
 
             query.Parameters.AddWithValue("@code", m.Code);
             query.Parameters.AddWithValue("@name", m.Name);
             query.Parameters.AddWithValue("@unit", m.Unit);
             query.Parameters.AddWithValue("@is_gen_ed", m.IsGenEd);
-            query.Parameters.AddWithValue("@term_id", m.TermId);
 
             try { return query.ExecuteNonQuery(); } catch { return -1; } finally { db.Close(); }
         }
@@ -47,7 +46,6 @@ namespace ScheduleProject.data.controller
                         Name = reader[Subject.COL_NAME].ToString(),
                         Unit = Convert.ToInt16(reader[Subject.COL_UNIT]),
                         IsGenEd = Convert.ToBoolean(reader[Subject.COL_IS_GEN_ED]),
-                        TermId = Convert.ToInt32(reader[Subject.COL_TERM_ID]),
                         CreatedAt = reader[Subject.COL_CREATED_AT].ToString(),
                         UpdatedAt = reader[Subject.COL_UPDATED_AT].ToString()
                     });

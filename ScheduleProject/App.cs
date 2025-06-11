@@ -34,6 +34,7 @@ namespace ScheduleProject
             //Term.TermSeeder();
             //Room.RoomSeeder();
             //Subject.SubjectSeeder();
+            //Subject.SubjectSeeder();
             //ClassGroup.ClassGroupSeeder();
             //SchoolYearTerm.SchoolYearTermSeeder();
 
