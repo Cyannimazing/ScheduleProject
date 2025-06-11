@@ -29,6 +29,7 @@ namespace ScheduleProject.data.controller
             try { return query.ExecuteNonQuery(); } catch { return -1; } finally { db.Close(); }
         }
 
+        //To be fixed
         public List<Model> GetAll()
         {
             var db = DatabaseService.getConnection();
@@ -66,6 +67,7 @@ namespace ScheduleProject.data.controller
             return list;
         }
 
+        //To be fixed
         public Model GetSubjectsById(int id)
         {
             var db = DatabaseService.getConnection();
