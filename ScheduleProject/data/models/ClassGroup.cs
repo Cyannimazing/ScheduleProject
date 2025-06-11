@@ -22,14 +22,35 @@ namespace ScheduleProject.data.models
         {
             BaseService.Create(Controller.CLASS_GROUP, new ClassGroup
             {
-                Name = "CS-1A",
-                ProgCode = "BSCS" // Make sure this code exists in your Program table
+                Name = "A",
+                ProgCode = "CBT 29" // Make sure this code exists in your Program table
             });
             BaseService.Create(Controller.CLASS_GROUP, new ClassGroup
             {
-                Name = "HM-1A",
-                ProgCode = "BSHM" // Make sure this code exists in your Program table
+                Name = "B",
+                ProgCode = "CBT 29" // Make sure this code exists in your Program table
             });
+            BaseService.Create(Controller.CLASS_GROUP, new ClassGroup
+            {
+                Name = "C",
+                ProgCode = "CBT 29" // Make sure this code exists in your Program table
+            });
+            BaseService.Create(Controller.CLASS_GROUP, new ClassGroup
+            {
+                Name = "D",
+                ProgCode = "CBT 29" // Make sure this code exists in your Program table
+            });
+            BaseService.Create(Controller.CLASS_GROUP, new ClassGroup
+            {
+                Name = "E",
+                ProgCode = "CBT 29" // Make sure this code exists in your Program table
+            });
+            BaseService.Create(Controller.CLASS_GROUP, new ClassGroup
+            {
+                Name = "F",
+                ProgCode = "CBT 29" // Make sure this code exists in your Program table
+            });
+
         }
     }
 }

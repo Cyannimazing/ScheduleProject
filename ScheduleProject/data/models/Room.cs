@@ -17,14 +17,17 @@ namespace ScheduleProject.data.models
 
         public static void RoomSeeder()
         {
-            BaseService.Create(Controller.ROOM ,new Room
+            string[] rooms =
             {
-                Name = "Room A101"
-            });
-            BaseService.Create(Controller.ROOM ,new Room
+                "GMC", "JAGUAR", "BMW", "SUZUKI", "Volvo", "Mitsubishi", "Volkswagen", "Nissan"
+            };
+            for (int i = 0; i < rooms.Length; i++)
             {
-                Name = "Room B101"
-            });
+                BaseService.Create(Controller.ROOM, new Room
+                {
+                    Name = rooms[i],
+                });
+            }
         }
     }
 

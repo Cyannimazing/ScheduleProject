@@ -24,18 +24,44 @@ namespace ScheduleProject.data.models
 
         public static void LecturerSeeder()
         {
-            BaseService.Create(Controller.LECTURER, new Lecturer
+            List<Lecturer> lecturers = new List<Lecturer>();
+            lecturers.Add(new Lecturer
             {
-                Title = "Prof.",
-                FName = "Juan",
-                LName = "Dela Cruz"
+                Title = "Ms.",
+                FName = "Hawa",
+                LName = "ALmujaini"
             });
-            BaseService.Create(Controller.LECTURER, new Lecturer
+            lecturers.Add(new Lecturer
             {
-                Title = "Doc.",
-                FName = "John",
-                LName = "Doe"
+                Title = "Dr.",
+                FName = "Harpreet"
             });
+            lecturers.Add(new Lecturer
+            {
+                Title = "Mr.",
+                FName = "Yunus"
+            });
+            lecturers.Add(new Lecturer
+            {
+                Title = "Dr.",
+                FName = "Rose",
+            });
+            lecturers.Add(new Lecturer
+            {
+                Title = "Ms.",
+                FName = "Bishara",
+            });
+            lecturers.Add(new Lecturer
+            {
+                Title = "Dr.",
+                FName = "Shaimaa Al",
+                LName = "Tabib"
+            });
+
+            foreach (var item in lecturers)
+            {
+                BaseService.Create(Controller.LECTURER, item);
+            }
         }
     }
 

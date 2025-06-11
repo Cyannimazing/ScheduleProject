@@ -20,14 +20,16 @@ namespace ScheduleProject.data.models
 
         public static void TermSeeder()
         {
-            for(int i = 1;  i <= 2; i++)
+
+            BaseService.Create(Controller.TERM, new Term
             {
-                Term term = new Term
-                {
-                    Name = $"{i} Term"
-                };
-                BaseService.Create(Controller.TERM, term);
-            }
+                Name = "1st Term"
+            });
+            BaseService.Create(Controller.TERM, new Term
+            {
+                Name = "2nd Term"
+            });
+            
         }
     }
 }

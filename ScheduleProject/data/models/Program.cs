@@ -27,11 +27,10 @@ namespace ScheduleProject.data.models
                 Code = "BTEA",
                 Name = "Bachelor of Technology (HONS) in Automotive (BTEA) Prospectus"
             });
-            //BaseService.Create(Controller.PROGRAM, new Program
-            //{
-            //    Code = "BSHM",
-            //    Name = "Hospitality Management"
-            //});
+            BaseService.Create(Controller.PROGRAM, new Program
+            {
+                Code = "CBT 29",
+            });
         }
     }
 

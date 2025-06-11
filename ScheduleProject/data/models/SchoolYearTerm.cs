@@ -24,20 +24,7 @@ namespace ScheduleProject.data.models
 
         public static void SchoolYearTermSeeder()
         {
-            BaseService.Create(Controller.SCHOOL_YEAR_TERM ,new SchoolYearTerm
-            {
-                TermId = 1, 
-                SchoolYear = "2025-2026",
-                StartDate = "2025-01-01",
-                EndDate = "2026-05-15"
-            });
-            BaseService.Create(Controller.SCHOOL_YEAR_TERM ,new SchoolYearTerm
-            {
-                TermId = 2, 
-                SchoolYear = "2025-2026",
-                StartDate = "2025-06-01",
-                EndDate = "2026-10-15"
-            });
+
         }
     }
 
