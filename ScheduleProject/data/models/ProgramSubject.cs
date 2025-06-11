@@ -14,6 +14,7 @@ namespace ScheduleProject.data.models
         public static string COL_PROG_NAME = "prog_name";
         public static string COL_SUBJ_NAME = "subj_name";
         public static string COL_YEAR_LEVEL = "year_level";
+        public static string COL_TERM_ID = "term_id";
 
         public string ProgCode { get; set; }
         public Program Program { get; set; }
