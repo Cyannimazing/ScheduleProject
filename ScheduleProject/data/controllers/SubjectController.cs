@@ -31,7 +31,7 @@ namespace ScheduleProject.data.controller
         {
             var db = DatabaseService.getConnection();
             var query = db.CreateCommand();
-            query.CommandText = $@"SELECT * FROM {Subject.TBL_NAME}";
+            query.CommandText = $@"SELECT * FROM {Subject.TBL_NAME} ORDER BY code";
 
             var list = new List<Model>();
 
