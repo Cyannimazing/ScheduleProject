@@ -3,6 +3,8 @@ using ScheduleProject.data.models;
 using ScheduleProject.data.service;
 using ScheduleProject.InputForm;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -43,7 +45,7 @@ namespace ScheduleProject
 
             foreach (Room room in roomList)
             {
-                dataGridViewRooms.Rows.Add(room.Id, room.Name);
+                dataGridViewRooms.Rows.Add("Hello World");
             }
 
         }

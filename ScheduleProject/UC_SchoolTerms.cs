@@ -43,7 +43,7 @@ namespace ScheduleProject
 
             foreach (SchoolYearTerm syTerm in syTermList)
             {
-                dataGridViewSchoolTerms.Rows.Add(syTerm.Id, syTerm.Term.Name, syTerm.SchoolYear, syTerm.StartDate, syTerm.EndDate);
+                dataGridViewSchoolTerms.Rows.Add(syTerm.Id, syTerm.SchoolYear, syTerm.Term.Name, syTerm.StartDate, syTerm.EndDate);
             }
         }
 
